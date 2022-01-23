@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
 import {
   auth,
   logout,
   signIn,
   signInWithGoogle,
   whoIsIn,
-  // signInWithGoogle,
 } from "../../../auth/firebase";
 import "./LoginPage.css";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [user, loading, error] = useAuthState(auth);
-  // const history = useHistory();
+
   return (
     <div className="login">
       <div className="login__container">

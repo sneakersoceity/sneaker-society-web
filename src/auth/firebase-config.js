@@ -1,3 +1,5 @@
+import { initializeApp } from "firebase/app";
+
 const firebaseConfig = {
   apiKey: "AIzaSyD0hRrAj70bXNU1FC_99600jXynzPuID6E",
   authDomain: "sneaker-society.firebaseapp.com",
@@ -8,4 +10,4 @@ const firebaseConfig = {
   measurementId: "G-5DF9HGJTMY",
 };
 
-export default firebaseConfig;
+export const app = initializeApp(firebaseConfig);

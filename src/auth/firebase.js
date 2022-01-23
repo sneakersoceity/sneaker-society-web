@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import firebaseConfig from "./config";
+import firebaseConfig from "./firebase-config";
 
 import {
   getAuth,
@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 // Initialize Firebase app
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 const provider = new GoogleAuthProvider();
@@ -87,7 +87,8 @@ const registerWithEmailAndPassword = async (name, email, password) => {
 const whoIsIn = async () => {
   try {
     const foundUser = auth.currentUser.email;
-    console.log(foundUser);
+    // console.log(foundUser);
+    alert(foundUser)
   } catch (err) {
     alert(err);
   }
