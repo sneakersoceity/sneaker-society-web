@@ -1,4 +1,4 @@
-import { Typography, Box, Stack, Button, IconButton } from "@mui/material";
+import { Typography, Box, Stack, Button, IconButton, TextField, createTheme, ThemeProvider, InputBase } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -10,6 +10,7 @@ import { height } from "@mui/system";
 const CustomIconButton = styled(IconButton)({
   fontSize: 22,
 });
+
 export const LoginForm = () => {
   return (
     <Stack height="100%" bgcolor="black" alignItems="center" spacing={1}>
@@ -69,6 +70,15 @@ export const LoginForm = () => {
 
       <Divider style={{ width: "80%", background: "white", height: ".1rem"}} />
 
+
+   <Box component="form" autoComplete="off" noValidate>
+   <InputBase
+        sx={{ ml: 1, flex: 1, backgroundColor: 'white', p: 2 }}
+        placeholder="Email"
+        inputProps={{ 'aria-label': 'search google maps' }}
+      />
+
+   </Box>
     </Stack>
   );
 };
