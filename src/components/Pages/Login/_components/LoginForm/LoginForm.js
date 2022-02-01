@@ -21,7 +21,7 @@ export const LoginForm = () => {
           {/* </Box> */}
 
         <Typography variant="h7" fontWeight="bold" color="white">
-          Welcome to the best online sneaker community! test
+          Welcome to the best online sneaker community!
         </Typography>
       </Stack>
 
