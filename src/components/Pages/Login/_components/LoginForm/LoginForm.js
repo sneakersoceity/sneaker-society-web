@@ -1,4 +1,14 @@
-import { Typography, Box, Stack, Button, IconButton, TextField, createTheme, ThemeProvider, InputBase } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Stack,
+  Button,
+  IconButton,
+  TextField,
+  createTheme,
+  ThemeProvider,
+  InputBase,
+} from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -15,10 +25,8 @@ export const LoginForm = () => {
   return (
     <Stack height="100%" bgcolor="black" alignItems="center" spacing={1}>
       <Stack alignItems="center" spacing={2} pt={6}>
-        
-
-        <Logo height="80%"  />
-          {/* </Box> */}
+        <Logo height="80%" />
+        {/* </Box> */}
 
         <Typography variant="h7" fontWeight="bold" color="white">
           Welcome to the best online sneaker community!
@@ -66,19 +74,26 @@ export const LoginForm = () => {
         </Stack>
       </Box>
 
+      <Divider style={{ width: "80%", background: "white", height: ".1rem" }} />
 
-
-      <Divider style={{ width: "80%", background: "white", height: ".1rem"}} />
-
-
-   <Box component="form" autoComplete="off" noValidate>
-   <InputBase
-        sx={{ ml: 1, flex: 1, backgroundColor: 'white', p: 2 }}
-        placeholder="Email"
-        inputProps={{ 'aria-label': 'search google maps' }}
-      />
-
-   </Box>
+      <Box component="form" autoComplete="off" noValidate width="50%">
+        <Stack textAlign="start">
+          <Typography color="white">Email</Typography>
+          <InputBase
+            sx={{ flex: 1, backgroundColor: "white", width: '100%' }}
+            placeholder="Email"
+            inputProps={{ "aria-label": "search google maps" }}
+          />
+        </Stack>
+        <Stack textAlign="start">
+          <Typography color="white">Password</Typography>
+          <InputBase
+            sx={{ flex: 1, backgroundColor: "white", width: '100%' }}
+            placeholder="Email"
+            inputProps={{ "aria-label": "search google maps" }}
+          />
+        </Stack>
+      </Box>
     </Stack>
   );
 };
