@@ -8,6 +8,8 @@ import {
   createTheme,
   ThemeProvider,
   InputBase,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -15,7 +17,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import Divider from "@mui/material/Divider";
 import { ReactComponent as Logo } from "../../../../../assets/SS Logo.svg";
 import styled from "@emotion/styled";
-import { height } from "@mui/system";
+import { pink, white } from "@mui/material/colors";
 
 const CustomIconButton = styled(IconButton)({
   fontSize: 22,
@@ -77,20 +79,50 @@ export const LoginForm = () => {
       <Divider style={{ width: "80%", background: "white", height: ".1rem" }} />
 
       <Box component="form" autoComplete="off" noValidate width="50%">
-        <Stack textAlign="start">
-          <Typography color="white">Email</Typography>
+        <Stack textAlign="start" pb={2}>
+          <Typography fontWeight="bold" color="white">
+            Email
+          </Typography>
           <InputBase
-            sx={{ flex: 1, backgroundColor: "white", width: '100%' }}
+            sx={{ flex: 1, backgroundColor: "white", width: "100%", p: 1 }}
             placeholder="Email"
             inputProps={{ "aria-label": "search google maps" }}
           />
         </Stack>
         <Stack textAlign="start">
-          <Typography color="white">Password</Typography>
+          <Typography fontWeight="bold" color="white">
+            Password
+          </Typography>
           <InputBase
-            sx={{ flex: 1, backgroundColor: "white", width: '100%' }}
-            placeholder="Email"
+            sx={{ flex: 1, backgroundColor: "white", width: "100%", p: 1 }}
+            placeholder="Password"
             inputProps={{ "aria-label": "search google maps" }}
+          />
+        </Stack>
+        <Stack>
+          <Typography fontWeight="500" color="white">
+            Forgot Password
+          </Typography>
+          <FormControlLabel
+            control={
+              <Checkbox
+                sx={{
+                  color: "white",
+                  "&.Mui-checked": {
+                    color: "white",
+                  },
+                }}
+              />
+            }
+            label={
+              <Typography
+                sx={{
+                  color: "white",
+                }}
+              >
+                Hello
+              </Typography>
+            }
           />
         </Stack>
       </Box>
