@@ -8,6 +8,7 @@ import Profile from "./components/Pages/Profile";
 import LoginPage from "./components/Pages/Login";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { ComingSoon } from "./components/Pages/Coming Soon/ComingSoon";
 
 function App() {
   // useEffect(() => {
@@ -20,7 +21,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="*" element={<LoginPage />} />
+        {/* <Route path="*" element={<LoginPage />} /> */}
+        <Route path="*" element={<ComingSoon />} />
       </Routes>
     </div>
   );
