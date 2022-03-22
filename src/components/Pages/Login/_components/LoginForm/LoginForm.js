@@ -41,7 +41,7 @@ export const LoginForm = () => {
         </Stack>
     
           <Typography variant="h6" fontWeight={500} color="white" gutterBottom>
-            Sign in with
+            Sign in with yo
           </Typography>
           <Stack direction="row" spacing={5} pb={4}>
             <Box
