@@ -2,13 +2,9 @@ import { Typography, Stack } from "@mui/material";
 import { ReactComponent as Logo } from "../../../assets/SS Logo.svg";
 import {
   Box,
-  borderRadius,
-  color,
-  style,
   styled,
   keyframes,
 } from "@mui/system";
-import { GiConverseShoe } from "react-icons/gi";
 
 const fadeInFirst = keyframes`
 0% {
