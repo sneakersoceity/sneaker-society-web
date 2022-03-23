@@ -52,7 +52,7 @@ export const ComingSoon = () => {
         <Logo height="100%" width="500px"/>
 
         <Typography variant="h5" fontWeight="bold" color="white">
-          Welcome to the best online sneaker community! yo
+          Welcome to the best online sneaker community!
         </Typography>
           </MyComp>
       </Stack>
