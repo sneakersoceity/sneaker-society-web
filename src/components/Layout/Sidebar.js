@@ -19,7 +19,7 @@ const SidebarLink = ({ text, Icon, notificationNumber }) => {
     >
       <Box pr={2}>
         {Icon ? (
-          <Badge badgeContent={notificationNumber} color="primary" max={20}>
+          <Badge badgeContent={notificationNumber} color="secondary" max={20}>
             <Icon size={30} />
           </Badge>
         ) : null}
@@ -55,14 +55,19 @@ export const Sidebar = () => {
         width="100%"
         height="100%"
         spacing={3}
+        pt={2}
       >
         <SSLogo width="60%" />
 
         <SidebarLink text="My Society" Icon={GiConverseShoe} />
         <SidebarLink text="Explore" Icon={AiOutlineCompass} />
-        <SidebarLink text="Groups" Icon={GrGroup} />
+        <SidebarLink text="Groups" notificationNumber={2} Icon={GrGroup} />
         <SidebarLink text="The Vault" Icon={BsSafe2} />
-        <SidebarLink text="Messages" notificationNumber={99} Icon={MdOutlineMessage} />
+        <SidebarLink
+          text="Messages"
+          notificationNumber={17}
+          Icon={MdOutlineMessage}
+        />
       </Stack>
 
       <Stack
@@ -76,6 +81,7 @@ export const Sidebar = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
+            pb: 2,
           }}
         >
           <SidebarLink text="Settings" Icon={FiSettings} />
