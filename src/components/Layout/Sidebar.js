@@ -1,24 +1,33 @@
-import { Box, Link, Stack, Typography } from "@mui/material";
-import { ReactComponent as Logo } from "../../assets/white_logo.svg";
-import { IoIosHome } from "react-icons/io";
+import { Badge, Box, Link, Stack, Typography } from "@mui/material";
+import { ReactComponent as SSLogo } from "../../assets/white_logo.svg";
+import { GiConverseShoe } from "react-icons/gi";
+import { GrGroup } from "react-icons/gr";
+import { BsSafe2 } from "react-icons/bs";
+import { AiOutlineCompass } from "react-icons/ai";
+import { FiSettings } from "react-icons/fi";
+import { MdOutlineMessage } from "react-icons/md";
 
-const SidebarLink = ({ text, Icon }) => {
+const SidebarLink = ({ text, Icon, notificationNumber }) => {
   return (
     <Box
       sx={{
-        width: "80%",
+        width: "70%",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "left",
         alignItems: "center",
       }}
     >
-      <Box pr={3}>
-        <Icon size={40} />
+      <Box pr={2}>
+        {Icon ? (
+          <Badge badgeContent={notificationNumber} color="primary" max={20}>
+            <Icon size={30} />
+          </Badge>
+        ) : null}
       </Box>
       <Typography
         sx={{
-          fontWeight: "bold",
-          fontSize: "1.7rem",
+          fontWeight: "500",
+          fontSize: "1.5rem",
         }}
       >
         {text}
@@ -35,13 +44,42 @@ export const Sidebar = () => {
         height: "100vh",
         backgroundColor: "white",
         filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));",
-        overflow: 'hidden',
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <Stack justifyContent="center" alignItems="center" width="100%" spacing={3}>
-        <Logo width="60%" />
+      <Stack
+        justifyContent="flex-start"
+        alignItems="center"
+        width="100%"
+        height="100%"
+        spacing={3}
+      >
+        <SSLogo width="60%" />
 
-        <SidebarLink text="Home" Icon={IoIosHome} />
+        <SidebarLink text="My Society" Icon={GiConverseShoe} />
+        <SidebarLink text="Explore" Icon={AiOutlineCompass} />
+        <SidebarLink text="Groups" Icon={GrGroup} />
+        <SidebarLink text="The Vault" Icon={BsSafe2} />
+        <SidebarLink text="Messages" notificationNumber={99} Icon={MdOutlineMessage} />
+      </Stack>
+
+      <Stack
+        sx={{
+          justifyContent: "center",
+          alignContent: "center",
+          width: "100%",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <SidebarLink text="Settings" Icon={FiSettings} />
+        </Box>
       </Stack>
     </Box>
   );
