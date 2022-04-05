@@ -39,115 +39,114 @@ export const LoginForm = () => {
             Welcome to the best online sneaker community!
           </Typography>
         </Stack>
-    
-          <Typography variant="h6" fontWeight={500} color="white" gutterBottom>
-            Sign in with
-          </Typography>
-          <Stack direction="row" spacing={5} pb={4}>
-            <Box
-              bgcolor="white"
-              justifyContent="center"
-              alignItems="center"
-              display="flex"
-              p={1}
-            >
-              <CustomIconButton>
-                <GoogleIcon fontSize="inherit" />
-              </CustomIconButton>
-            </Box>
-            <Box
-              bgcolor="white"
-              justifyContent="center"
-              alignItems="center"
-              display="flex"
-              p={1}
-            >
-              <CustomIconButton>
-                <FacebookIcon fontSize="inherit" />
-              </CustomIconButton>
-            </Box>
-            <Box
-              bgcolor="white"
-              justifyContent="center"
-              alignItems="center"
-              display="flex"
-              p={1}
-            >
-              <CustomIconButton>
-                <TwitterIcon fontSize="inherit" />
-              </CustomIconButton>
-            </Box>
-          </Stack>
 
-            <Divider
-              style={{ width: "80%", background: "white", height: ".1rem" }}
+        <Typography variant="h6" fontWeight={500} color="white" gutterBottom>
+          Sign in with
+        </Typography>
+        <Stack direction="row" spacing={5} pb={4}>
+          <Box
+            bgcolor="white"
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
+            p={1}
+          >
+            <CustomIconButton>
+              <GoogleIcon fontSize="inherit" />
+            </CustomIconButton>
+          </Box>
+          <Box
+            bgcolor="white"
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
+            p={1}
+          >
+            <CustomIconButton>
+              <FacebookIcon fontSize="inherit" />
+            </CustomIconButton>
+          </Box>
+          <Box
+            bgcolor="white"
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
+            p={1}
+          >
+            <CustomIconButton>
+              <TwitterIcon fontSize="inherit" />
+            </CustomIconButton>
+          </Box>
+        </Stack>
+
+        <Divider
+          style={{ width: "80%", background: "white", height: ".1rem" }}
+        />
+
+        <Box component="form" autoComplete="off" noValidate width="50%">
+          <Stack textAlign="start" pb={2}>
+            <Typography fontWeight="bold" color="white">
+              Email
+            </Typography>
+            <InputBase
+              sx={{
+                flex: 1,
+                backgroundColor: "white",
+                width: "100%",
+                p: 1,
+              }}
+              placeholder="Email"
+              inputProps={{ "aria-label": "search google maps" }}
             />
-
-          <Box component="form" autoComplete="off" noValidate width="50%">
-              <Stack textAlign="start" pb={2}>
-                <Typography fontWeight="bold" color="white">
-                  Email
-                </Typography>
-                <InputBase
+          </Stack>
+          <Stack textAlign="start">
+            <Typography fontWeight="bold" color="white">
+              Password
+            </Typography>
+            <InputBase
+              sx={{
+                flex: 1,
+                backgroundColor: "white",
+                width: "100%",
+                p: 1,
+              }}
+              placeholder="Password"
+              type="password"
+              inputProps={{ "aria-label": "search google maps" }}
+            />
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            pt={2}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
                   sx={{
-                    flex: 1,
-                    backgroundColor: "white",
-                    width: "100%",
-                    p: 1,
+                    color: "white",
+                    "&.Mui-checked": {
+                      color: "white",
+                    },
                   }}
-                  placeholder="Email"
-                  inputProps={{ "aria-label": "search google maps" }}
                 />
-              </Stack>
-              <Stack textAlign="start">
-                <Typography fontWeight="bold" color="white">
-                  Password
-                </Typography>
-                <InputBase
+              }
+              label={
+                <Typography
                   sx={{
-                    flex: 1,
-                    backgroundColor: "white",
-                    width: "100%",
-                    p: 1,
+                    color: "white",
                   }}
-                  placeholder="Password"
-                  type="password"
-                  inputProps={{ "aria-label": "search google maps" }}
-                />
-              </Stack>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                pt={2}
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      sx={{
-                        color: "white",
-                        "&.Mui-checked": {
-                          color: "white",
-                        },
-                      }}
-                    />
-                  }
-                  label={
-                    <Typography
-                      sx={{
-                        color: "white",
-                      }}
-                    >
-                      Remember Me
-                    </Typography>
-                  }
-                />
-                <Typography fontWeight="500" color="white">
-                  Forgot Password
+                >
+                  Remember Me
                 </Typography>
-              </Stack>
-            </Box>
-       
+              }
+            />
+            <Typography fontWeight="500" color="white">
+              Forgot Password
+            </Typography>
+          </Stack>
+        </Box>
       </Stack>
     </Box>
   );

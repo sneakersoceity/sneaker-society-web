@@ -15,8 +15,7 @@ const SidebarLink = ({ text, Icon, notificationNumber }) => {
         display: "flex",
         justifyContent: "left",
         alignItems: "center",
-        cursor: 'pointer',
-     
+        cursor: "pointer",
       }}
     >
       <Box pr={2}>
@@ -30,10 +29,10 @@ const SidebarLink = ({ text, Icon, notificationNumber }) => {
         sx={{
           fontWeight: "500",
           fontSize: "1.5rem",
-          transition: 'box-shadow 200ms',
+          transition: "box-shadow 200ms",
           ":hover": {
-            boxShadow: 'inset 0 -3px 0 0  #FDE400'
-          }
+            boxShadow: "inset 0 -3px 0 0  #FDE400",
+          },
         }}
       >
         {text}

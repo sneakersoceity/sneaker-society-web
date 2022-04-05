@@ -88,7 +88,7 @@ const whoIsIn = async () => {
   try {
     const foundUser = auth.currentUser.email;
     // console.log(foundUser);
-    alert(foundUser)
+    alert(foundUser);
   } catch (err) {
     alert(err);
   }
