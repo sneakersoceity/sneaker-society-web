@@ -22,7 +22,7 @@ export default function Layout() {
       </Box>
       <Box
         sx={{
-          backgroundColor: "red",
+          backgroundColor: "black",
           width: "calc(100% - 250px)",
           float: 'right',
           height: "100%",
