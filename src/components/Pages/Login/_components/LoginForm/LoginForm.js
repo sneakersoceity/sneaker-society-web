@@ -20,6 +20,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +30,9 @@ const CustomIconButton = styled(IconButton)({
 });
 
 export const LoginForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -36,13 +40,49 @@ export const LoginForm = () => {
     const authentication = getAuth();
     signInWithEmailAndPassword(authentication, email, password)
       .then((response) => {
-        sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
-        navigate("/")
+        sessionStorage.setItem(
+          "Auth Token",
+          response._tokenResponse.refreshToken
+        );
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        sessionStorage.setItem(
+          "Auth Token",
+          token
+        );
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user)
+
+        navigate("/");
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        console.log(errorCode)
+        const errorMessage = error.message;
+        console.log(errorMessage)
+
+        // The email of the user's account used.
+        // const email = error.email;
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+
   return (
     <Box width="100%" height="100%" bgcolor="black">
       <Stack
@@ -70,7 +110,7 @@ export const LoginForm = () => {
             display="flex"
             p={1}
           >
-            <CustomIconButton>
+            <CustomIconButton onClick={handleGoogleLogin}>
               <GoogleIcon fontSize="inherit" />
             </CustomIconButton>
           </Box>
