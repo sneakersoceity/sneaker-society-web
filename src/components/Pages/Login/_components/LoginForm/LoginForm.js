@@ -2,14 +2,11 @@ import {
   Typography,
   Box,
   Stack,
-  Button,
   IconButton,
-  TextField,
-  createTheme,
-  ThemeProvider,
   InputBase,
   Checkbox,
   FormControlLabel,
+  Button,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -17,13 +14,35 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import Divider from "@mui/material/Divider";
 import { ReactComponent as Logo } from "../../../../../assets/SS Logo.svg";
 import styled from "@emotion/styled";
-import { pink, white } from "@mui/material/colors";
+import { useState, useRef } from "react";
+import { app } from "../../../../../auth/firebase-config";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const CustomIconButton = styled(IconButton)({
   fontSize: 22,
 });
 
 export const LoginForm = () => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    const authentication = getAuth();
+    signInWithEmailAndPassword(authentication, email, password)
+      .then((response) => {
+        sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+        navigate("/")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Box width="100%" height="100%" bgcolor="black">
       <Stack
@@ -96,6 +115,7 @@ export const LoginForm = () => {
                 p: 1,
               }}
               placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
               inputProps={{ "aria-label": "search google maps" }}
             />
           </Stack>
@@ -111,6 +131,7 @@ export const LoginForm = () => {
                 p: 1,
               }}
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               inputProps={{ "aria-label": "search google maps" }}
             />
@@ -147,6 +168,9 @@ export const LoginForm = () => {
             </Typography>
           </Stack>
         </Box>
+        <Button variant="contained" onClick={handleLogin}>
+          Contained
+        </Button>
       </Stack>
     </Box>
   );

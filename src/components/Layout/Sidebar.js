@@ -6,8 +6,9 @@ import { BsSafe2 } from "react-icons/bs";
 import { AiOutlineCompass } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import { MdOutlineMessage } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
-const SidebarLink = ({ text, Icon, notificationNumber }) => {
+const SidebarLink = ({ text, Icon, notificationNumber, onClick }) => {
   return (
     <Box
       sx={{
@@ -17,6 +18,7 @@ const SidebarLink = ({ text, Icon, notificationNumber }) => {
         alignItems: "center",
         cursor: "pointer",
       }}
+      onClick={onClick}
     >
       <Box pr={2}>
         {Icon ? (
@@ -42,6 +44,13 @@ const SidebarLink = ({ text, Icon, notificationNumber }) => {
 };
 
 export const Sidebar = () => {
+  let navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("Auth Token");
+    navigate("/login");
+  };
+
   return (
     <Box
       sx={{
@@ -89,7 +98,11 @@ export const Sidebar = () => {
             pb: 2,
           }}
         >
-          <SidebarLink text="Settings" Icon={FiSettings} />
+          <SidebarLink
+            text="Settings"
+            Icon={FiSettings}
+            onClick={handleLogout}
+          />
         </Box>
       </Stack>
     </Box>

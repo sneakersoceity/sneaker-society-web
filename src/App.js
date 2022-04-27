@@ -1,26 +1,26 @@
 import "./App.css";
-import { Route, Link, Routes } from "react-router-dom";
-import Mysociety from "./components/Pages/Mysociety";
+import { Route, Routes, Navigate, Outlet } from "react-router-dom";
 import Layout from "./components/Layout";
-// import Explore from "./components/Pages/Explore";
-// import Groups from "./components/Pages/Groups";
-// import Profile from "./components/Pages/Profile";
-// import LoginPage from "./components/Pages/Login";
-import { useEffect, useState } from "react";
-// import axios from "axios";
+import LoginPage from "./components/Pages/Login/LoginPage";
+
+const ProtectedRoute = ({ user, redirectPath = "/login", children }) => {
+  let authToken = sessionStorage.getItem("Auth Token");
+
+  if (!authToken) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return children ? children : <Outlet />;
+};
 
 function App() {
-  // useEffect(() => {
-  //   axios.get(process.env.REACT_APP_API_URL).then((response) => {
-  //     setUserData(response.data);
-  //   });
-  // }, []);
-  const [userData, setUserData] = useState([]);
-
   return (
     <div className="App">
       <Routes>
-        <Route path="*" element={<Layout />} />
+        <Route element={<ProtectedRoute redirectPath="/login" />}>
+          <Route path="/" element={<Layout />} />
+        </Route>
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );
