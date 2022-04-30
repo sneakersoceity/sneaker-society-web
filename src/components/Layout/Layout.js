@@ -1,5 +1,6 @@
 import { Box } from "@mui/system";
 import React from "react";
+import Mysociety from "../Pages/Mysociety/Mysociety";
 import { Sidebar } from "./Sidebar";
 
 export default function Layout() {
@@ -20,13 +21,13 @@ export default function Layout() {
       </Box>
       <Box
         sx={{
-          backgroundColor: "black",
+          backgroundColor: "white",
           width: "calc(100% - 250px)",
           float: "right",
           height: "100%",
         }}
       >
-        hello
+        <Mysociety />
       </Box>
     </Box>
   );

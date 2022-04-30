@@ -17,10 +17,11 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route element={<ProtectedRoute redirectPath="/login" />}>
+        {/* <Route element={<ProtectedRoute redirectPath="/login" />}>
           <Route path="/" element={<Layout />} />
-        </Route>
+        </Route> */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<Layout />} />
       </Routes>
     </div>
   );
