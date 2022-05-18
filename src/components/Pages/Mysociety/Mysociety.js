@@ -13,7 +13,7 @@ export default function Mysociety() {
     <Container maxWidth="xl" bacj>
       <Box sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>
         {posts.map((post) => (
-          <Typography>@{post.name}</Typography>
+          <Typography>@ lol{post.name}</Typography>
         ))}
       </Box>
     </Container>
