@@ -58,12 +58,12 @@ export const LoginForm = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         sessionStorage.setItem(
-          "Auth Token",
+          "token",
           token
         );
         // The signed-in user info.
         const user = result.user;
-        console.log(user)
+        console.log(user.accessToken)
 
         navigate("/");
         // ...

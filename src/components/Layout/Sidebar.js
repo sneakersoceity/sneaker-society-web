@@ -7,6 +7,7 @@ import { AiOutlineCompass } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import { MdOutlineMessage } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 
 const SidebarLink = ({ text, Icon, notificationNumber, onClick }) => {
   return (
@@ -45,9 +46,17 @@ const SidebarLink = ({ text, Icon, notificationNumber, onClick }) => {
 
 export const Sidebar = () => {
   let navigate = useNavigate();
+  const auth = getAuth();
 
   const handleLogout = () => {
-    sessionStorage.removeItem("Auth Token");
+    auth
+      .signOut()
+      .then(() => {
+        sessionStorage.removeItem("Auth Token");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     navigate("/login");
   };
 
