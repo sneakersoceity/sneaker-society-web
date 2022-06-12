@@ -12,6 +12,7 @@ import formInitalValues from "./FormModel/formInitalValues";
 import IntakeForm from "./Forms/IntakeForm";
 import intakeFormModel from "./FormModel/intakeFormModel";
 import validationSchema from "./FormModel/validationSchema";
+import ShowIntakeForm from "./Forms/ShoeIntakeForm";
 
 const steps = ["Step 1", "Step 2", "Step3", "Submit"];
 
@@ -56,7 +57,7 @@ export default function MemberIntakeForm() {
       case 1:
         return (
           <div>
-            <h1>Step 2</h1>
+            <ShowIntakeForm formField={formField} />
           </div>
         );
       case 2:
