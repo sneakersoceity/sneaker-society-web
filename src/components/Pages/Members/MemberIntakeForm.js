@@ -7,8 +7,15 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
+import { Form, Formik } from "formik";
 
-const steps = ["Step 1", "Step 2", "Step3"];
+const steps = ["Step 1", "Step 2", "Step3", "Submit"];
+
+const initalValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+};
 
 export default function MemberIntakeForm() {
   const [activeStep, setActiveStep] = useState(0);
@@ -23,6 +30,24 @@ export default function MemberIntakeForm() {
     }
   };
 
+  function _sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function _submitForm(values, actions) {
+    await _sleep(1000);
+    alert(JSON.stringify(values, null, 2));
+    actions.setSubmitting(false);
+
+    setActiveStep(activeStep + 1);
+  }
+
+  const _handleSubmit = (values, actions) => {
+    if (isLastStep) {
+      _submitForm(values, actions);
+    }
+    setActiveStep(activeStep + 1);
+  };
   const handleReset = () => setActiveStep(0);
 
   const renderStepContent = (step) => {
@@ -68,18 +93,30 @@ export default function MemberIntakeForm() {
           ))}
         </Stepper>
 
-        {renderStepContent(activeStep)}
-
-        <Stack direction="row" justifyContent="space-between">
-          <Button disabled={activeStep === 0} onClick={handleBackStep}>
-            Back
-          </Button>
-          <Button disabled={isLastStep} onClick={handleNextStep}>
-            Next
-          </Button>
-        </Stack>
-
-        {activeStep}
+        {activeStep === steps.length ? (
+          <>
+            <Typography variant="h3" align="center">
+              Last Page Yo
+            </Typography>
+            <Button onClick={handleReset}>Reset</Button>
+          </>
+        ) : (
+          <Formik initialValues={initalValues} onSubmit={_handleSubmit}>
+            {({ isSubbmitting }) => (
+              <Form>
+                {renderStepContent(activeStep)}
+                <Stack direction="row" justifyContent="space-between">
+                  {activeStep !== 0 && (
+                    <Button onClick={handleBackStep}>Back</Button>
+                  )}
+                  <Button disabled={isSubbmitting} type="submit">
+                    Next
+                  </Button>
+                </Stack>
+              </Form>
+            )}
+          </Formik>
+        )}
       </Container>
     </>
   );
