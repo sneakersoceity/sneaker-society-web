@@ -9,9 +9,12 @@ import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import formInitalValues from "./FormModel/formInitalValues";
+import IntakeForm from "./Forms/IntakeForm";
+import intakeFormModel from "./FormModel/intakeFormModel";
 
 const steps = ["Step 1", "Step 2", "Step3", "Submit"];
 
+const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -48,11 +51,7 @@ export default function MemberIntakeForm() {
   const renderStepContent = (step) => {
     switch (step) {
       case 0:
-        return (
-          <div>
-            <h1>Step 1</h1>
-          </div>
-        );
+        return <IntakeForm formField={formField} />;
       case 1:
         return (
           <div>
@@ -111,7 +110,7 @@ export default function MemberIntakeForm() {
                     <Button onClick={handleBackStep}>Back</Button>
                   )}
                   <Button disabled={isSubbmitting} type="submit">
-                    Next
+                    {isLastStep ? "Submit" : "Next"}
                   </Button>
                 </Stack>
               </Form>

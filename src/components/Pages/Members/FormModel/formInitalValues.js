@@ -5,7 +5,7 @@ const {
 } = intakeFormModel;
 
 export default {
-  [firstName.name]: "Yo yo",
+  [firstName.name]: "",
   [lastName.name]: "",
   [email.name]: "",
 };
