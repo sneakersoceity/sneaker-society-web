@@ -52,12 +52,14 @@ export default function MemberIntakeForm() {
   };
 
   return (
-    <div>
+    <>
       <Container
         container
         sx={{ bgcolor: "#cfe8fc", height: "100vh", widt: "100%" }}
       >
-        <h1>Member form</h1>
+        <Typography variant="h1" align="center">
+          Member form
+        </Typography>
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
@@ -65,6 +67,7 @@ export default function MemberIntakeForm() {
             </Step>
           ))}
         </Stepper>
+
         {renderStepContent(activeStep)}
 
         <Stack direction="row" justifyContent="space-between">
@@ -78,6 +81,6 @@ export default function MemberIntakeForm() {
 
         {activeStep}
       </Container>
-    </div>
+    </>
   );
 }
