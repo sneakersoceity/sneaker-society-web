@@ -57,14 +57,14 @@ export default function MemberIntakeForm() {
         container
         sx={{ bgcolor: "#cfe8fc", height: "100vh", widt: "100%" }}
       >
-        <Stepper activeStep={activeStep}>
+        <h1>Member form</h1>
+        <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
         </Stepper>
-        <h1>Member form</h1>
         {renderStepContent(activeStep)}
 
         <Stack direction="row" justifyContent="space-between">
