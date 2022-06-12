@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import LoginPage from "./components/Pages/Login/LoginPage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import TestApi from "./components/TestApi/TestApi";
+import MemberIntakeForm from "./components/Pages/Members/MemberIntakeForm";
 
 const ProtectedRoute = ({ user, redirectPath = "/login", children }) => {
   let authToken = sessionStorage.getItem("token");
@@ -35,6 +36,7 @@ function App() {
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/test" element={<TestApi />} />
+        <Route path="/member" element={<MemberIntakeForm />} />
       </Routes>
     </div>
   );
