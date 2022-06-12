@@ -22,8 +22,7 @@ export default function IntakeForm(props) {
           <InputField name={email.name} label={email.label} fullWidth />
         </Grid>
         <Grid item xs={12}>
-          <PhoneInput label="Phone Number"
-            name="phoneNumber" />
+          <PhoneInput label={phoneNumber.label} name={phoneNumber.name} fullWidth/>
         </Grid>
       </Grid>
     </>

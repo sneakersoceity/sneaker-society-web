@@ -9,10 +9,10 @@ const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 export default Yup.object({
-  [firstName.name]: Yup.string(),
-  [lastName.name]: Yup.string(),
-  [email.name]: Yup.string(),
+  [firstName.name]: Yup.string().required(`${firstName.requiredErrMsg}`),
+  [lastName.name]: Yup.string().required(`${lastName.requiredErrMsg}`),
+  [email.name]: Yup.string().required(`${email.requiredErrMsg}`),
   [phoneNumber.name]: Yup.string()
-    .required()
-    .matches(phoneRegExp, "Phone number but be valid"),
+    .required(`${phoneNumber.requiredErrMsg}`)
+    .matches(phoneRegExp, `${phoneNumber.invalidErrMsg}`),
 });
