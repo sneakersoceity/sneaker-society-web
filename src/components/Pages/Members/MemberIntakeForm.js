@@ -8,14 +8,9 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
+import formInitalValues from "./FormModel/formInitalValues";
 
 const steps = ["Step 1", "Step 2", "Step3", "Submit"];
-
-const initalValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-};
 
 export default function MemberIntakeForm() {
   const [activeStep, setActiveStep] = useState(0);
@@ -70,6 +65,12 @@ export default function MemberIntakeForm() {
             <h1>Step 3</h1>
           </div>
         );
+      case 3:
+        return (
+          <div>
+            <h1>Step 4</h1>
+          </div>
+        );
 
       default:
         return <div>Not Found</div>;
@@ -101,7 +102,7 @@ export default function MemberIntakeForm() {
             <Button onClick={handleReset}>Reset</Button>
           </>
         ) : (
-          <Formik initialValues={initalValues} onSubmit={_handleSubmit}>
+          <Formik initialValues={formInitalValues} onSubmit={_handleSubmit}>
             {({ isSubbmitting }) => (
               <Form>
                 {renderStepContent(activeStep)}
