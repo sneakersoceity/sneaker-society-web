@@ -13,5 +13,9 @@ export default {
       name: "email",
       label: "Email",
     },
+    phoneNumber: {
+      name: "phoneNumber",
+      label: "Phone Number",
+    },
   },
 };

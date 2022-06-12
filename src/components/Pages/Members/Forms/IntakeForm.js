@@ -1,10 +1,10 @@
 import { Grid, Typography } from "@mui/material";
 import InputField from "../components/InputField";
 import React from "react";
-
+import PhoneInput from "../components/PhoneInput";
 export default function IntakeForm(props) {
   const {
-    formField: { firstName, lastName, email },
+    formField: { firstName, lastName, email, phoneNumber },
   } = props;
   return (
     <>
@@ -20,6 +20,10 @@ export default function IntakeForm(props) {
         </Grid>
         <Grid item xs={12}>
           <InputField name={email.name} label={email.label} fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <PhoneInput label="Phone Number"
+            name="phoneNumber" />
         </Grid>
       </Grid>
     </>

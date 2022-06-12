@@ -11,6 +11,7 @@ import { Form, Formik } from "formik";
 import formInitalValues from "./FormModel/formInitalValues";
 import IntakeForm from "./Forms/IntakeForm";
 import intakeFormModel from "./FormModel/intakeFormModel";
+import validationSchema from "./FormModel/validationSchema";
 
 const steps = ["Step 1", "Step 2", "Step3", "Submit"];
 
@@ -101,7 +102,11 @@ export default function MemberIntakeForm() {
             <Button onClick={handleReset}>Reset</Button>
           </>
         ) : (
-          <Formik initialValues={formInitalValues} onSubmit={_handleSubmit}>
+          <Formik
+            initialValues={formInitalValues}
+            validationSchema={validationSchema}
+            onSubmit={_handleSubmit}
+          >
             {({ isSubbmitting }) => (
               <Form>
                 {renderStepContent(activeStep)}
