@@ -48,6 +48,9 @@ export default function ShowIntakeForm(props) {
           <InputField
             name={description.name}
             label={description.label}
+            multiline
+            minRows={3}
+            maxRows={5}
             fullWidth
           />
         </Grid>
