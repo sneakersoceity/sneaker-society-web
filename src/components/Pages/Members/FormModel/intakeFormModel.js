@@ -22,5 +22,29 @@ export default {
       requiredErrMsg: "Phone number is required.",
       invalidErrMsg: "Must be a valid Phone Number",
     },
+    shoeName: {
+      name: "shoeName",
+      label: "Name",
+      requiredErrMsg: "Shoe name is required.",
+    },
+    shoeBrand: {
+      name: "shoeBrand",
+      label: "Brand",
+      requiredErrMsg: "Shoe Brand is required.",
+    },
+    shoeSize: {
+      name: "shoeSize",
+      label: "Size",
+      requiredErrMsg: "Shoe Size is required.",
+    },
+    askingFor: {
+      name: "askingFor",
+      label: "What are you looking to have done",
+      requiredErrMsg: "This is required to submit."
+    },
+    description: {
+      name: "description",
+      label: "Description",
+    },
   },
 };

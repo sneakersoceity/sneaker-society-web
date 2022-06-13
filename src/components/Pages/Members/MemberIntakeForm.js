@@ -19,10 +19,9 @@ const steps = ["Step 1", "Step 2", "Step3", "Submit"];
 const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
   const [activeStep, setActiveStep] = useState(0);
+  const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
-
-  const handleNextStep = () => setActiveStep(activeStep + 1);
 
   const handleBackStep = () => {
     if (activeStep !== 0) {
@@ -105,11 +104,11 @@ export default function MemberIntakeForm() {
         ) : (
           <Formik
             initialValues={formInitalValues}
-            validationSchema={validationSchema}
+            validationSchema={currentValidationSchema}
             onSubmit={_handleSubmit}
           >
             {({ isSubbmitting }) => (
-              <Form>
+              <Form id={formId}>
                 {renderStepContent(activeStep)}
                 <Stack direction="row" justifyContent="space-between">
                   {activeStep !== 0 && (
