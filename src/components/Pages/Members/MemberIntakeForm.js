@@ -14,7 +14,7 @@ import intakeFormModel from "./FormModel/intakeFormModel";
 import validationSchema from "./FormModel/validationSchema";
 import ShowIntakeForm from "./Forms/ShoeIntakeForm";
 
-const steps = ["Step 1", "Step 2", "Step3", "Submit"];
+const steps = ["Step 1", "Step 2", "Submit"];
 
 const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
@@ -62,13 +62,7 @@ export default function MemberIntakeForm() {
       case 2:
         return (
           <div>
-            <h1>Step 3</h1>
-          </div>
-        );
-      case 3:
-        return (
-          <div>
-            <h1>Step 4</h1>
+            <Typography variant="h1" align="center">Submit</Typography>
           </div>
         );
 
@@ -95,12 +89,12 @@ export default function MemberIntakeForm() {
         </Stepper>
 
         {activeStep === steps.length ? (
-          <>
-            <Typography variant="h3" align="center">
-              Last Page Yo
+          <Box>
+            <Typography variant="h1" align="center">
+              Thank you for Submitting
             </Typography>
-            <Button onClick={handleReset}>Reset</Button>
-          </>
+            <Button color="secondary" variant="contained" onClick={handleReset}>Reset</Button>
+          </Box>
         ) : (
           <Formik
             initialValues={formInitalValues}
@@ -110,11 +104,11 @@ export default function MemberIntakeForm() {
             {({ isSubbmitting }) => (
               <Form id={formId}>
                 {renderStepContent(activeStep)}
-                <Stack direction="row" justifyContent="space-between">
+                <Stack direction="row" justifyContent="space-between" pt={3}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBackStep}>Back</Button>
+                    <Button color="secondary" variant="contained" onClick={handleBackStep}>Back</Button>
                   )}
-                  <Button disabled={isSubbmitting} type="submit">
+                  <Button color="secondary" variant="contained" disabled={isSubbmitting} type="submit">
                     {isLastStep ? "Submit" : "Next"}
                   </Button>
                 </Stack>

@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { green, purple, red, yellow } from "@mui/material/colors";
 
 export const MyTheme = createTheme({
   palette: {
@@ -12,7 +12,7 @@ export const MyTheme = createTheme({
     },
     secondary: {
       // This is green.A700 as hex.
-      main: red[500],
+      main: purple[300],
     },
   },
 });
