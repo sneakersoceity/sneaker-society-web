@@ -29,7 +29,7 @@ export default {
     },
     shoeBrand: {
       name: "shoeBrand",
-      label: "Brand",
+      label: "Sneaker Brand",
       requiredErrMsg: "Shoe Brand is required.",
     },
     shoeSize: {
