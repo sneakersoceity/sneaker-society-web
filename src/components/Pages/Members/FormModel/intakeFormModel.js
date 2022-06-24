@@ -40,11 +40,15 @@ export default {
     askingFor: {
       name: "askingFor",
       label: "What are you looking to have done",
-      requiredErrMsg: "This is required to submit."
+      requiredErrMsg: "This is required to submit.",
     },
     description: {
       name: "description",
       label: "Description",
+    },
+    files: {
+      name: "file",
+      label: "File",
     },
   },
 };

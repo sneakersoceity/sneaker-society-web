@@ -12,6 +12,7 @@ const {
     askingFor,
     description,
     shoeName,
+    files,
   },
 } = intakeFormModel;
 
@@ -33,5 +34,8 @@ export default [
     [shoeSize.name]: Yup.number().required(`${shoeSize.requiredErrMsg}`),
     [askingFor.name]: Yup.string().required(`${askingFor.requiredErrMsg}`),
     [description.name]: Yup.string(),
+  }),
+  Yup.object().shape({
+    [files.name]: Yup.mixed(),
   }),
 ];

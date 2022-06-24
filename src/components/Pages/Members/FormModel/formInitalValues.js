@@ -11,6 +11,7 @@ const {
     shoeName,
     description,
     askingFor,
+    files,
   },
 } = intakeFormModel;
 
@@ -19,9 +20,10 @@ export default {
   [lastName.name]: "",
   [email.name]: "",
   [phoneNumber.name]: "",
-  [askingFor.name]: "",
-  [shoeBrand.name]: "",
-  [shoeName.name]: "",
-  [shoeSize.name]: "",
-  [description.name]: "",
+  [askingFor.name]: "test",
+  [shoeBrand.name]: "tester",
+  [shoeName.name]: "fsdfa",
+  [shoeSize.name]: "12",
+  [description.name]: "safaw",
+  [files.name]: null,
 };

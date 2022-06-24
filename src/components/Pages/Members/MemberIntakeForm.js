@@ -13,8 +13,10 @@ import IntakeForm from "./Forms/IntakeForm";
 import intakeFormModel from "./FormModel/intakeFormModel";
 import validationSchema from "./FormModel/validationSchema";
 import ShowIntakeForm from "./Forms/ShoeIntakeForm";
+import PhotoUploadForm from "./Forms/PhotoUploadForm";
+import axios from "axios";
 
-const steps = ["Step 1", "Step 2", "Submit"];
+const steps = ["Step 1", "Step 2", "Photos", "Submit"];
 
 const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
@@ -36,6 +38,32 @@ export default function MemberIntakeForm() {
   async function _submitForm(values, actions) {
     await _sleep(1000);
     alert(JSON.stringify(values, null, 2));
+
+    if (values.file) {
+      const data = new FormData();
+
+      const { file } = values;
+      console.log(typeof file);
+      const fileArr = Object.keys(file).map((key) => file[key]);
+      console.log(fileArr);
+      console.log(typeof fileArr);
+      fileArr.forEach((imageFile) => {
+        data.append("files", imageFile);
+      });
+
+      for (const value of data.values()) {
+        console.log(value);
+      }
+
+  
+      const res = await axios.post("http://localhost:4000/upload", data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+      console.log(res.data);
+    }
     actions.setSubmitting(false);
 
     setActiveStep(activeStep + 1);
@@ -49,7 +77,7 @@ export default function MemberIntakeForm() {
   };
   const handleReset = () => setActiveStep(0);
 
-  const renderStepContent = (step) => {
+  const renderStepContent = (step, setFieldValue) => {
     switch (step) {
       case 0:
         return <IntakeForm formField={formField} />;
@@ -62,7 +90,18 @@ export default function MemberIntakeForm() {
       case 2:
         return (
           <div>
-            <Typography variant="h1" align="center">Submit</Typography>
+            <PhotoUploadForm
+              formField={formField}
+              setFieldValue={setFieldValue}
+            />
+          </div>
+        );
+      case 3:
+        return (
+          <div>
+            <Typography variant="h1" align="center">
+              Submit
+            </Typography>
           </div>
         );
 
@@ -93,7 +132,9 @@ export default function MemberIntakeForm() {
             <Typography variant="h1" align="center">
               Thank you for Submitting
             </Typography>
-            <Button color="secondary" variant="contained" onClick={handleReset}>Reset</Button>
+            <Button color="secondary" variant="contained" onClick={handleReset}>
+              Reset
+            </Button>
           </Box>
         ) : (
           <Formik
@@ -101,14 +142,25 @@ export default function MemberIntakeForm() {
             validationSchema={currentValidationSchema}
             onSubmit={_handleSubmit}
           >
-            {({ isSubbmitting }) => (
+            {({ isSubbmitting, setFieldValue }) => (
               <Form id={formId}>
-                {renderStepContent(activeStep)}
+                {renderStepContent(activeStep, setFieldValue)}
                 <Stack direction="row" justifyContent="space-between" pt={3}>
                   {activeStep !== 0 && (
-                    <Button color="secondary" variant="contained" onClick={handleBackStep}>Back</Button>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      onClick={handleBackStep}
+                    >
+                      Back
+                    </Button>
                   )}
-                  <Button color="secondary" variant="contained" disabled={isSubbmitting} type="submit">
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    disabled={isSubbmitting}
+                    type="submit"
+                  >
                     {isLastStep ? "Submit" : "Next"}
                   </Button>
                 </Stack>
