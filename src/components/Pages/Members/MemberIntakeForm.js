@@ -56,7 +56,7 @@ export default function MemberIntakeForm() {
       }
 
   
-      const res = await axios.post("http://localhost:4000/upload", data, {
+      const res = await axios.post("https://morning-tor-15921.herokuapp.com/upload", data, {
         headers: {
           "content-type": "multipart/form-data",
         },
