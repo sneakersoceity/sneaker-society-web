@@ -6,7 +6,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import formInitalValues from "./FormModel/formInitalValues";
 import IntakeForm from "./Forms/IntakeForm";
@@ -21,7 +21,12 @@ const steps = ["Step 1", "Step 2", "Photos", "Submit"];
 const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
   const [activeStep, setActiveStep] = useState(0);
+  const [progress, setProgress] = useState(0);
   const currentValidationSchema = validationSchema[activeStep];
+
+  useEffect(() => {
+    console.log(progress);
+  }, [progress]);
 
   const isLastStep = activeStep === steps.length - 1;
 
@@ -36,8 +41,8 @@ export default function MemberIntakeForm() {
   }
 
   async function _submitForm(values, actions) {
-    await _sleep(1000);
-    alert(JSON.stringify(values, null, 2));
+    // await _sleep(1000);
+    // alert(JSON.stringify(values, null, 2));
 
     if (values.file) {
       const data = new FormData();
@@ -55,12 +60,20 @@ export default function MemberIntakeForm() {
         console.log(value);
       }
 
-  
-      const res = await axios.post("https://morning-tor-15921.herokuapp.com/upload", data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        // "https://morning-tor-15921.herokuapp.com/upload",
+        "http://localhost:4000/upload",
+        data,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+          onUploadProgress: (data) => {
+            console.log(data);
+            setProgress(Math.round((100 * data.loaded) / data.total));
+          },
+        }
+      );
 
       console.log(res.data);
     }
@@ -168,6 +181,7 @@ export default function MemberIntakeForm() {
             )}
           </Formik>
         )}
+        <Typography>Progress: {progress}%</Typography>
       </Container>
     </>
   );
