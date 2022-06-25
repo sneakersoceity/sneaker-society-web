@@ -29,8 +29,14 @@ export default function PhotoUploadForm(props) {
   const remove = (file) => {
     const newFiles = [...files];
     newFiles.splice(newFiles.indexOf(file), 1);
-    formikProps.setFieldValue("file", newFiles);
-    setFiles(newFiles);
+    // formikProps.setFieldValue("file", newFiles);
+    setFiles(
+      newFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      )
+    );
   };
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
