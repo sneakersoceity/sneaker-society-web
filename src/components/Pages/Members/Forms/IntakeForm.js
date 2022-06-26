@@ -2,7 +2,10 @@ import { Grid, Typography } from "@mui/material";
 import InputField from "../components/InputField";
 import React from "react";
 import PhoneInput from "../components/PhoneInput";
+import { useFormikContext } from "formik";
 export default function IntakeForm(props) {
+  const formikProps = useFormikContext();
+
   const {
     formField: { firstName, lastName, email, phoneNumber },
   } = props;
@@ -22,7 +25,11 @@ export default function IntakeForm(props) {
           <InputField name={email.name} label={email.label} fullWidth />
         </Grid>
         <Grid item xs={12}>
-          <PhoneInput label={phoneNumber.label} name={phoneNumber.name} fullWidth/>
+          <PhoneInput
+            label={phoneNumber.label}
+            name={phoneNumber.name}
+            fullWidth
+          />
         </Grid>
       </Grid>
     </>

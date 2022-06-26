@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import { Route, Routes, Navigate, Outlet, useParams } from "react-router-dom";
 import Layout from "./components/Layout";
 import LoginPage from "./components/Pages/Login/LoginPage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -36,7 +36,9 @@ function App() {
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/test" element={<TestApi />} />
-        <Route path="/member" element={<MemberIntakeForm />} />
+        <Route path="/member">
+          <Route path=":memberId" element={<MemberIntakeForm />} />
+        </Route>
       </Routes>
     </div>
   );

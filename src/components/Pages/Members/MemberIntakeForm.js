@@ -15,6 +15,10 @@ import validationSchema from "./FormModel/validationSchema";
 import ShowIntakeForm from "./Forms/ShoeIntakeForm";
 import PhotoUploadForm from "./Forms/PhotoUploadForm";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { MEMBER_BY_ID } from "./graphql/MemberInfo";
+import { useQuery } from "@apollo/client";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const steps = ["Step 1", "Step 2", "Photos", "Submit"];
 
@@ -22,11 +26,28 @@ const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
   const [activeStep, setActiveStep] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [formInital, setFormInital] = useState(formInitalValues);
   const currentValidationSchema = validationSchema[activeStep];
 
+  let { memberId } = useParams();
+
+  const { loading, error, data } = useQuery(MEMBER_BY_ID, {
+    variables: { id: memberId },
+  });
+
   useEffect(() => {
-    console.log(progress);
-  }, [progress]);
+    let authToken = sessionStorage.getItem("token");
+    console.log(authToken);
+    if (!loading) {
+      console.log(data?.memberById.id);
+      formInital.memberId = data?.memberById.id
+    }
+
+    if (error) {
+      console.log(error);
+    }
+    // console.log(loading);
+  }, [loading]);
 
   const isLastStep = activeStep === steps.length - 1;
 
@@ -41,8 +62,8 @@ export default function MemberIntakeForm() {
   }
 
   async function _submitForm(values, actions) {
-    // await _sleep(1000);
-    // alert(JSON.stringify(values, null, 2));
+    await _sleep(1000);
+    alert(JSON.stringify(values, null, 2));
 
     if (values.file) {
       const data = new FormData();
@@ -123,11 +144,33 @@ export default function MemberIntakeForm() {
     }
   };
 
+  if (loading) {
+    return (
+      <Container
+        container
+        sx={{
+          bgcolor: "#cfe8fc",
+          height: "100vh",
+          width: "100%",
+        }}
+      >
+        <Stack
+          direction="row"
+          justifyContent="center"
+          height="100%"
+          alignItems="center"
+        >
+          <CircularProgress size={200} />
+        </Stack>
+      </Container>
+    );
+  }
+
   return (
     <>
       <Container
         container
-        sx={{ bgcolor: "#cfe8fc", height: "100vh", widt: "100%" }}
+        sx={{ bgcolor: "#cfe8fc", height: "100vh", width: "100%" }}
       >
         <Typography variant="h1" align="center">
           Member form
@@ -151,7 +194,7 @@ export default function MemberIntakeForm() {
           </Box>
         ) : (
           <Formik
-            initialValues={formInitalValues}
+            initialValues={formInital}
             validationSchema={currentValidationSchema}
             onSubmit={_handleSubmit}
           >

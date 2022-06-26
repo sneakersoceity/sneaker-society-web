@@ -6,17 +6,18 @@ import {
   useQuery,
   gql,
 } from "@apollo/client";
+import { MEMBER_BY_ID } from "../Pages/Members/graphql/MemberInfo";
 export default function TestApi() {
-  const TEST_QUERY = gql`
-    query GetMembers {
-      members {
-        id
-        email
-      }
-    }
-  `;
+  // const TEST_QUERY = gql`
+  //   query GetMembers {
+  //     members {
+  //       id
+  //       email
+  //     }
+  //   }
+  // `;
 
-  const { loading, error, data } = useQuery(TEST_QUERY);
+  const { loading, error, data } = useQuery(MEMBER_BY_ID);
   useEffect(() => {
     let authToken = sessionStorage.getItem("token");
     console.log(authToken);
