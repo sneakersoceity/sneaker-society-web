@@ -6,7 +6,6 @@ import {
   useQuery,
   gql,
 } from "@apollo/client";
-
 export default function TestApi() {
   const TEST_QUERY = gql`
     query GetMembers {
@@ -33,6 +32,7 @@ export default function TestApi() {
   return (
     <div>
       <p>Test api yo</p>
+      <h1>{process.env.REACT_APP_API_URL}</h1>
     </div>
   );
 }
