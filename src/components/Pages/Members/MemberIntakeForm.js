@@ -20,6 +20,7 @@ import { MEMBER_BY_ID } from "./graphql/MemberInfo";
 import { useMutation, useQuery } from "@apollo/client";
 import CircularProgress from "@mui/material/CircularProgress";
 import { CREATE_CONTRACT } from "./graphql/CreateContract";
+import { CREATE_CLIENT } from "./graphql/CreateClient";
 
 const steps = ["Step 1", "Step 2", "Photos", "Submit"];
 
@@ -32,9 +33,15 @@ export default function MemberIntakeForm() {
 
   let { memberId } = useParams();
 
+  // Not Needed data pulled in Backend
   const { loading, error, data } = useQuery(MEMBER_BY_ID, {
     variables: { id: memberId },
   });
+
+  const [
+    createClient,
+    { data: clientData, loading: clientLoading, error: clientError },
+  ] = useMutation(CREATE_CLIENT);
 
   const [
     createContract,
@@ -45,8 +52,9 @@ export default function MemberIntakeForm() {
     let authToken = sessionStorage.getItem("token");
     console.log(authToken);
     if (!loading) {
-      // console.log(data?.memberById.id);
+      console.log(data?.memberById.id);
       formInital.memberId = data?.memberById.id;
+      console.log(data);
     }
 
     if (error) {
@@ -69,24 +77,18 @@ export default function MemberIntakeForm() {
 
   async function _submitForm(values, actions) {
     await _sleep(1000);
-    alert(JSON.stringify(values, null, 2));
+    // alert(JSON.stringify(values, null, 2));
 
     if (values.file) {
+      // Pull data from form
       const formData = new FormData();
-
       const { file } = values;
-      // console.log(typeof file);
       const fileArr = Object.keys(file).map((key) => file[key]);
-      // console.log(fileArr);
-      // console.log(typeof fileArr);
       fileArr.forEach((imageFile) => {
         formData.append("files", imageFile);
       });
 
-      // for (const value of dorm.values()) {
-      //   // console.log(value);
-      // }
-
+      // Hit the photo upload Route.
       const res = await axios.post(
         // "https://morning-tor-15921.herokuapp.com/upload",
         "http://localhost:4000/upload",
@@ -96,28 +98,30 @@ export default function MemberIntakeForm() {
             "content-type": "multipart/form-data",
           },
           onUploadProgress: (data) => {
-            // console.log(data);
             setProgress(Math.round((100 * data.loaded) / data.total));
           },
         }
       );
 
+      // Res from photo upload route.
       const locations = res.data;
-      console.log({
-        client: "628a02bfd8ca0133314938da",
-        memberId: memberId,
-        eta: "",
-        stage: "",
-        photos: locations,
-        price: "",
-        reported: false,
-        notes: "",
+
+      // Create Client
+      const client = await createClient({
+        variables: {
+          data: {
+            email: values.email,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            memberId: memberId,
+          },
+        },
       });
 
       await createContract({
         variables: {
           data: {
-            client: "628a02bfd8ca0133314938da",
+            client: client.data.creatClient.id,
             memberId: memberId,
             eta: "",
             stage: "",
