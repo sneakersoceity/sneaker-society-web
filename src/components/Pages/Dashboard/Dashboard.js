@@ -21,7 +21,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!loading) {
-      const testData = data.memberById.contracts;
+      console.log(data);
+      const testData = data.memberById?.contracts;
       const testRows = testData.map((contract) => {
         return {
           id: contract.id,
