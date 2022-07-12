@@ -91,7 +91,7 @@ export default function MemberIntakeForm() {
       // Hit the photo upload Route.
       const res = await axios.post(
         // "https://morning-tor-15921.herokuapp.com/upload",
-        "http://localhost:4000/upload",
+        `${process.env.REACT_APP_API_URL}/upload`,
         formData,
         {
           headers: {
