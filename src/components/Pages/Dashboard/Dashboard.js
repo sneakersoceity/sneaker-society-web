@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { useTheme } from "@emotion/react";
 import {
   Button,
   TableContainer,
@@ -7,12 +8,16 @@ import {
   TableHead,
   Table,
   TableBody,
+  Container,
+  Typography,
+  Divider
 } from "@mui/material";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { MEMBER_CONTRACTS } from "./graphql/MemberContracts";
 
 export default function Dashboard() {
+  const theme = useTheme();
   const [rows, setRows] = useState([]);
 
   const { loading, error, data } = useQuery(MEMBER_CONTRACTS, {
@@ -38,16 +43,19 @@ export default function Dashboard() {
   }, [loading]);
 
   return (
-    <div>
-      {/* <p>Dashboard</p> */}
-      {/* <Button
-        color="secondary"
-        variant="contained"
-        onClick={handleContractLoad}
+    <Container container sx={{
+      bgcolor: 'white',
+      height: '100vh'
+    }}>
+      <Typography variant="h1" align="center" color="primary" pb={4}>
+        Dashboard
+      </Typography>
+      <TableContainer
+        sx={{
+          bgcolor: "white",
+          height: "100%",
+        }}
       >
-        Load Data
-      </Button> */}
-      <TableContainer>
         {" "}
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -81,6 +89,6 @@ export default function Dashboard() {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Container>
   );
 }

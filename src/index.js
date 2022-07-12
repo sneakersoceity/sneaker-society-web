@@ -13,8 +13,8 @@ import {
   gql,
 } from "@apollo/client";
 import { MyTheme } from "./theme/theme";
-
 import { setContext } from "@apollo/client/link/context";
+import { GlobalStyles } from "@mui/material";
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_API_URL}/graphql`,
@@ -42,6 +42,11 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={MyTheme}>
+        <GlobalStyles
+          styles={{
+            body: { backgroundColor: "black"},
+          }}
+        />
         <ApolloProvider client={client}>
           <App />
         </ApolloProvider>

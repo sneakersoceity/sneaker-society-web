@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mui/material";
+import { Grid, Stack, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -20,12 +20,14 @@ import { MEMBER_BY_ID } from "./graphql/MemberInfo";
 import { useMutation, useQuery } from "@apollo/client";
 import CircularProgress from "@mui/material/CircularProgress";
 import { CREATE_CONTRACT } from "./graphql/CreateContract";
+
 import { CREATE_CLIENT } from "./graphql/CreateClient";
 
 const steps = ["Step 1", "Step 2", "Photos", "Submit"];
 
 const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
+  const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [formInital, setFormInital] = useState(formInitalValues);
@@ -144,7 +146,10 @@ export default function MemberIntakeForm() {
     }
     setActiveStep(activeStep + 1);
   };
-  const handleReset = () => setActiveStep(0);
+  const handleReset = () => {
+    setActiveStep(0);
+    setProgress(0);
+  };
 
   const renderStepContent = (step, setFieldValue) => {
     switch (step) {
@@ -184,7 +189,7 @@ export default function MemberIntakeForm() {
       <Container
         container
         sx={{
-          bgcolor: "#cfe8fc",
+          bgcolor: theme.palette.background.primary,
           height: "100vh",
           width: "100%",
         }}
@@ -205,7 +210,12 @@ export default function MemberIntakeForm() {
     <>
       <Container
         container
-        sx={{ bgcolor: "#cfe8fc", height: "100vh", width: "100%" }}
+        sx={{
+          bgcolor: "white",
+          padding: "5rem",
+          height: "100vh",
+          width: "100%",
+        }}
       >
         <Typography variant="h1" align="center">
           Member form
@@ -259,7 +269,6 @@ export default function MemberIntakeForm() {
             )}
           </Formik>
         )}
-        <Typography>Progress: {progress}%</Typography>
       </Container>
     </>
   );

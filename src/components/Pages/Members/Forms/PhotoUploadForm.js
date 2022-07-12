@@ -11,6 +11,13 @@ const img = {
   height: "100%",
 };
 
+const dropzoneStyle = {
+  width: "100%",
+  height: "200px",
+  cursor: "pointer",
+  border: "1px solid black",
+};
+
 export default function PhotoUploadForm(props) {
   const formikProps = useFormikContext();
   useEffect(() => {
@@ -76,19 +83,28 @@ export default function PhotoUploadForm(props) {
   }, []);
 
   return (
-    <Stack>
-      <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-      <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-        {thumbs}
-      </ImageList>
+    <>
+      <Stack height="100%" pt={3}>
+        {/* <Typography variant="h1" align="center" pt={4}>
+          Photo Uploads
+        </Typography> */}
+        <div {...getRootProps({ className: "dropzone", style: dropzoneStyle })}>
+          <input {...getInputProps()} />
+          <Typography variant="h6" textAlign="center" justifyContent="center">
+            Drag 'n' drop some files here, or click to select files
+          </Typography>
+        </div>
+        {/* <ImageList cols={3} rowHeight={164}> */}
+        <Stack maxHeight={200} overflow="scroll">
+          {thumbs}
+        </Stack>
+        {/* </ImageList> */}
 
-      <Typography variant="p" pt={3}>
-        Uploaded Files:{" "}
-        {formikProps.values.file?.length ? formikProps.values.file.length : 0}
-      </Typography>
-    </Stack>
+        <Typography variant="h6" pt={3}>
+          Uploaded Files:{" "}
+          {formikProps.values.file?.length ? formikProps.values.file.length : 0}
+        </Typography>
+      </Stack>
+    </>
   );
 }

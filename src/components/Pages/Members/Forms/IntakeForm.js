@@ -11,7 +11,7 @@ export default function IntakeForm(props) {
   } = props;
   return (
     <>
-      <Typography variant="h5" align="center">
+      <Typography variant="h3" align="center" pt={4}>
         IntakeForm
       </Typography>
       <Grid container spacing={3}>
