@@ -17,13 +17,13 @@ import { MyTheme } from "./theme/theme";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: `${process.env.REACT_APP_API_URL}/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = sessionStorage.getItem("Auth Token");
-  console.log(token)
+  console.log(token);
   // return the headers to the context so httpLink can read them
   return {
     headers: {
