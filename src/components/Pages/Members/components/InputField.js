@@ -20,7 +20,7 @@ export default function InputField(props) {
       label={label}
       {...field}
       {...rest}
-      error={meta.touched && meta.error && true}
+      error={meta.touched && meta.error}
       helperText={_renderHelperText()}
     />
   );

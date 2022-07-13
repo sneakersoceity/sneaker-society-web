@@ -2,9 +2,9 @@ import { Grid, Typography } from "@mui/material";
 import InputField from "../components/InputField";
 import React from "react";
 import PhoneInput from "../components/PhoneInput";
-import { useFormikContext } from "formik";
+// import { useFormikContext } from "formik";
 export default function IntakeForm(props) {
-  const formikProps = useFormikContext();
+  // const formikProps = useFormikContext();
 
   const {
     formField: { firstName, lastName, email, phoneNumber },

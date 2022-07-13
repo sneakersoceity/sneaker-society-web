@@ -145,6 +145,8 @@ export default function MemberIntakeForm() {
       _submitForm(values, actions);
     }
     setActiveStep(activeStep + 1);
+    actions.setTouched({});
+    actions.setSubmitting(false);
   };
   const handleReset = () => {
     setActiveStep(0);
@@ -240,6 +242,7 @@ export default function MemberIntakeForm() {
         ) : (
           <Formik
             initialValues={formInital}
+            // validateOnChange={false}
             validationSchema={currentValidationSchema}
             onSubmit={_handleSubmit}
           >

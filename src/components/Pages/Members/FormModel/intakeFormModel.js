@@ -45,6 +45,7 @@ export default {
     description: {
       name: "description",
       label: "Description",
+      requiredErrMsg: "This is required to submit.",
     },
     files: {
       name: "file",
