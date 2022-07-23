@@ -1,4 +1,4 @@
-import { Grid, Stack, useTheme } from "@mui/material";
+import { Grid, Icon, Stack, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -20,6 +20,7 @@ import { MEMBER_BY_ID } from "./graphql/MemberInfo";
 import { useMutation, useQuery } from "@apollo/client";
 import CircularProgress from "@mui/material/CircularProgress";
 import { CREATE_CONTRACT } from "./graphql/CreateContract";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { CREATE_CLIENT } from "./graphql/CreateClient";
 
@@ -196,6 +197,28 @@ export default function MemberIntakeForm() {
     }
   };
 
+  if (myLoading) {
+    return (
+      <Container
+        container
+        sx={{
+          bgcolor: "white",
+          height: "100vh",
+          width: "100%",
+        }}
+      >
+        <Stack
+          direction="row"
+          justifyContent="center"
+          height="100%"
+          alignItems="center"
+        >
+          <CircularProgress size={200} />
+        </Stack>
+      </Container>
+    );
+  }
+
   return (
     <>
       <Container
@@ -211,28 +234,22 @@ export default function MemberIntakeForm() {
             <Stack
               direction="column"
               justifyContent="center"
+              alignItems="center"
               height="100%"
             >
+              {/* <Icon fontSize="large"> */}
+              <CheckCircleIcon sx={{ fontSize: 140, mb: 4, color: 'green' }} />
+              {/* </Icon> */}
               <Typography variant="h1" align="center">
-                Thank you for Submitting!
+                Thank you!
               </Typography>
               <Typography variant="p" align="center">
-              Please Allow 24 - 48 hours for ${memberId} to respond.
+                Please Allow 24 - 48 hours for ${memberId} to respond.
               </Typography>
             </Stack>
           </Container>
         ) : (
           <>
-            <Typography variant="h1" align="center">
-              Member form
-            </Typography>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
             <Formik
               initialValues={formInital}
               // validateOnChange={false}
@@ -241,27 +258,20 @@ export default function MemberIntakeForm() {
             >
               {({ isSubbmitting, setFieldValue }) => (
                 <Form id={formId}>
-                  {myLoading ? (
-                    <Container
-                      container
-                      sx={{
-                        bgcolor: theme.palette.background.primary,
-                        height: "100vh",
-                        width: "100%",
-                      }}
-                    >
-                      <Stack
-                        direction="row"
-                        justifyContent="center"
-                        height="100%"
-                        alignItems="center"
-                      >
-                        <CircularProgress size={200} />
-                      </Stack>
-                    </Container>
-                  ) : (
-                    renderStepContent(activeStep, setFieldValue)
-                  )}
+                  <>
+                    <Typography variant="h1" align="center">
+                      Member form
+                    </Typography>
+                    <Stepper activeStep={activeStep} alternativeLabel>
+                      {steps.map((label) => (
+                        <Step key={label}>
+                          <StepLabel>{label}</StepLabel>
+                        </Step>
+                      ))}
+                    </Stepper>
+                    {renderStepContent(activeStep, setFieldValue)}
+                  </>
+
                   <Stack direction="row" justifyContent="space-between" pt={3}>
                     {activeStep !== 0 && (
                       <Button

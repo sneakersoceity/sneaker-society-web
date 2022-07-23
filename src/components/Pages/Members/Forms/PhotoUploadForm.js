@@ -84,10 +84,7 @@ export default function PhotoUploadForm(props) {
 
   return (
     <>
-      <Stack height="100%" pt={3}>
-        {/* <Typography variant="h1" align="center" pt={4}>
-          Photo Uploads
-        </Typography> */}
+      <Stack height="100%" pt={4}>
         <div {...getRootProps({ className: "dropzone", style: dropzoneStyle })}>
           <input {...getInputProps()} />
           <Typography variant="h6" textAlign="center" justifyContent="center">

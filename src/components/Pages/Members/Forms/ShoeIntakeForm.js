@@ -23,10 +23,7 @@ export default function ShowIntakeForm(props) {
   } = props;
   return (
     <>
-      {/* <Typography variant="h6" align="center" pt={4}>
-        Shoe Intake Form
-      </Typography> */}
-      <Grid container spacing={3} pt= {2}>
+      <Grid container spacing={3} pt= {4}>
         <Grid item xs={12}>
           <InputField name={shoeBrand.name} label={shoeBrand.label} fullWidth />
         </Grid>
