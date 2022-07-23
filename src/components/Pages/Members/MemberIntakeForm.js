@@ -211,12 +211,10 @@ export default function MemberIntakeForm() {
   return (
     <>
       <Container
-        container
         sx={{
           bgcolor: "white",
           padding: "5rem",
-          height: "100%",
-          width: "100%",
+          // height: "100vh",
         }}
       >
         <Typography variant="h1" align="center">
