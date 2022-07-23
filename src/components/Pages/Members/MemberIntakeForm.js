@@ -23,12 +23,14 @@ import { CREATE_CONTRACT } from "./graphql/CreateContract";
 
 import { CREATE_CLIENT } from "./graphql/CreateClient";
 
-const steps = ["Info", "Sneaker Info", "Photos", "Submit"];
+const steps = ["Info", "Sneaker Info", "Photos", "Review"];
 
 const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
   const theme = useTheme();
+
   const [activeStep, setActiveStep] = useState(0);
+  const [myLoading, setMyLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [formInital, setFormInital] = useState(formInitalValues);
   const currentValidationSchema = validationSchema[activeStep];
@@ -79,62 +81,63 @@ export default function MemberIntakeForm() {
 
   async function _submitForm(values, actions) {
     await _sleep(1000);
-    // alert(JSON.stringify(values, null, 2));
+    alert(JSON.stringify(values, null, 2));
+    setMyLoading(false);
 
-    if (values.file) {
-      // Pull data from form
-      const formData = new FormData();
-      const { file } = values;
-      const fileArr = Object.keys(file).map((key) => file[key]);
-      fileArr.forEach((imageFile) => {
-        formData.append("files", imageFile);
-      });
+    // if (values.file) {
+    //   // Pull data from form
+    //   const formData = new FormData();
+    //   const { file } = values;
+    //   const fileArr = Object.keys(file).map((key) => file[key]);
+    //   fileArr.forEach((imageFile) => {
+    //     formData.append("files", imageFile);
+    //   });
 
-      // Hit the photo upload Route.
-      const res = await axios.post(
-        // "https://morning-tor-15921.herokuapp.com/upload",
-        `${process.env.REACT_APP_API_URL}/upload`,
-        formData,
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-          onUploadProgress: (data) => {
-            setProgress(Math.round((100 * data.loaded) / data.total));
-          },
-        }
-      );
+    //   // Hit the photo upload Route.
+    //   const res = await axios.post(
+    //     // "https://morning-tor-15921.herokuapp.com/upload",
+    //     `${process.env.REACT_APP_API_URL}/upload`,
+    //     formData,
+    //     {
+    //       headers: {
+    //         "content-type": "multipart/form-data",
+    //       },
+    //       onUploadProgress: (data) => {
+    //         setProgress(Math.round((100 * data.loaded) / data.total));
+    //       },
+    //     }
+    //   );
 
-      // Res from photo upload route.
-      const locations = res.data;
+    //   // Res from photo upload route.
+    //   const locations = res.data;
 
-      // Create Client
-      const client = await createClient({
-        variables: {
-          data: {
-            email: values.email,
-            firstName: values.firstName,
-            lastName: values.lastName,
-            memberId: memberId,
-          },
-        },
-      });
+    //   // Create Client
+    //   const client = await createClient({
+    //     variables: {
+    //       data: {
+    //         email: values.email,
+    //         firstName: values.firstName,
+    //         lastName: values.lastName,
+    //         memberId: memberId,
+    //       },
+    //     },
+    //   });
 
-      await createContract({
-        variables: {
-          data: {
-            client: client.data.creatClient.id,
-            memberId: memberId,
-            eta: "",
-            stage: "",
-            photos: locations,
-            price: "",
-            reported: false,
-            notes: "",
-          },
-        },
-      });
-    }
+    //   await createContract({
+    //     variables: {
+    //       data: {
+    //         client: client.data.creatClient.id,
+    //         memberId: memberId,
+    //         eta: "",
+    //         stage: "",
+    //         photos: locations,
+    //         price: "",
+    //         reported: false,
+    //         notes: "",
+    //       },
+    //     },
+    //   });
+    // }
     actions.setSubmitting(false);
 
     setActiveStep(activeStep + 1);
@@ -142,8 +145,11 @@ export default function MemberIntakeForm() {
 
   const _handleSubmit = (values, actions) => {
     if (isLastStep) {
+      setMyLoading(true);
+
       _submitForm(values, actions);
     }
+
     setActiveStep(activeStep + 1);
     actions.setTouched({});
     actions.setSubmitting(false);
@@ -174,11 +180,15 @@ export default function MemberIntakeForm() {
         );
       case 3:
         return (
-          <div>
+          <Container>
             <Typography variant="h1" align="center">
-              Submit
+              Review
             </Typography>
-          </div>
+
+            <Button color="secondary" variant="contained" onClick={handleReset}>
+              Reset
+            </Button>
+          </Container>
         );
 
       default:
@@ -186,89 +196,95 @@ export default function MemberIntakeForm() {
     }
   };
 
-  if (loading) {
-    return (
-      <Container
-        container
-        sx={{
-          bgcolor: theme.palette.background.primary,
-          height: "100vh",
-          width: "100%",
-        }}
-      >
-        <Stack
-          direction="row"
-          justifyContent="center"
-          height="100%"
-          alignItems="center"
-        >
-          <CircularProgress size={200} />
-        </Stack>
-      </Container>
-    );
-  }
-
   return (
     <>
       <Container
         sx={{
           bgcolor: "white",
           padding: "5rem",
-          // height: "100vh",
+          height: "100vh",
+          overflowY: "scroll",
         }}
       >
-        <Typography variant="h1" align="center">
-          Member form
-        </Typography>
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-
-        {activeStep === steps.length ? (
-          <Box>
-            <Typography variant="h1" align="center">
-              Thank you for Submitting
-            </Typography>
-            <Button color="secondary" variant="contained" onClick={handleReset}>
-              Reset
-            </Button>
-          </Box>
+        {activeStep === steps.length && !myLoading ? (
+          <Container sx={{ height: "100%" }}>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              height="100%"
+            >
+              <Typography variant="h1" align="center">
+                Thank you for Submitting!
+              </Typography>
+              <Typography variant="p" align="center">
+              Please Allow 24 - 48 hours for ${memberId} to respond.
+              </Typography>
+            </Stack>
+          </Container>
         ) : (
-          <Formik
-            initialValues={formInital}
-            // validateOnChange={false}
-            validationSchema={currentValidationSchema}
-            onSubmit={_handleSubmit}
-          >
-            {({ isSubbmitting, setFieldValue }) => (
-              <Form id={formId}>
-                {renderStepContent(activeStep, setFieldValue)}
-                <Stack direction="row" justifyContent="space-between" pt={3}>
-                  {activeStep !== 0 && (
+          <>
+            <Typography variant="h1" align="center">
+              Member form
+            </Typography>
+            <Stepper activeStep={activeStep} alternativeLabel>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <Formik
+              initialValues={formInital}
+              // validateOnChange={false}
+              validationSchema={currentValidationSchema}
+              onSubmit={_handleSubmit}
+            >
+              {({ isSubbmitting, setFieldValue }) => (
+                <Form id={formId}>
+                  {myLoading ? (
+                    <Container
+                      container
+                      sx={{
+                        bgcolor: theme.palette.background.primary,
+                        height: "100vh",
+                        width: "100%",
+                      }}
+                    >
+                      <Stack
+                        direction="row"
+                        justifyContent="center"
+                        height="100%"
+                        alignItems="center"
+                      >
+                        <CircularProgress size={200} />
+                      </Stack>
+                    </Container>
+                  ) : (
+                    renderStepContent(activeStep, setFieldValue)
+                  )}
+                  <Stack direction="row" justifyContent="space-between" pt={3}>
+                    {activeStep !== 0 && (
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        onClick={handleBackStep}
+                      >
+                        Back
+                      </Button>
+                    )}
                     <Button
                       color="secondary"
                       variant="contained"
-                      onClick={handleBackStep}
+                      disabled={isSubbmitting}
+                      type="submit"
                     >
-                      Back
+                      {isLastStep ? "Submit" : "Next"}
                     </Button>
-                  )}
-                  <Button
-                    color="secondary"
-                    variant="contained"
-                    disabled={isSubbmitting}
-                    type="submit"
-                  >
-                    {isLastStep ? "Submit" : "Next"}
-                  </Button>
-                </Stack>
-              </Form>
-            )}
-          </Formik>
+                  </Stack>
+                </Form>
+              )}
+            </Formik>
+          </>
         )}
       </Container>
     </>
