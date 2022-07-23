@@ -237,9 +237,7 @@ export default function MemberIntakeForm() {
               alignItems="center"
               height="100%"
             >
-              {/* <Icon fontSize="large"> */}
               <CheckCircleIcon sx={{ fontSize: 140, mb: 4, color: 'green' }} />
-              {/* </Icon> */}
               <Typography variant="h1" align="center">
                 Thank you!
               </Typography>
