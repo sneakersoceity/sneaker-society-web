@@ -23,7 +23,7 @@ import { CREATE_CONTRACT } from "./graphql/CreateContract";
 
 import { CREATE_CLIENT } from "./graphql/CreateClient";
 
-const steps = ["Step 1", "Step 2", "Photos", "Submit"];
+const steps = ["Info", "Sneaker Info", "Photos", "Submit"];
 
 const { formId, formField } = intakeFormModel;
 export default function MemberIntakeForm() {
@@ -215,7 +215,7 @@ export default function MemberIntakeForm() {
         sx={{
           bgcolor: "white",
           padding: "5rem",
-          height: "100vh",
+          height: "100%",
           width: "100%",
         }}
       >
