@@ -1,4 +1,4 @@
-import { Grid, Icon, Stack, useTheme } from "@mui/material";
+import { Alert, Grid, Icon, Stack, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -17,12 +17,13 @@ import PhotoUploadForm from "./Forms/PhotoUploadForm";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { MEMBER_BY_ID } from "./graphql/MemberInfo";
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import CircularProgress from "@mui/material/CircularProgress";
 import { CREATE_CONTRACT } from "./graphql/CreateContract";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { CREATE_CLIENT } from "./graphql/CreateClient";
+import { CLIENT_BY_EMAIL } from "./graphql/ClientByEmail";
 
 const steps = ["Info", "Sneaker Info", "Photos", "Review"];
 
@@ -39,34 +40,36 @@ export default function MemberIntakeForm() {
   let { memberId } = useParams();
 
   // Not Needed data pulled in Backend
-  const { loading, error, data } = useQuery(MEMBER_BY_ID, {
+  const {
+    loading: memberLoading,
+    error: memberError,
+    data: memberData,
+  } = useQuery(MEMBER_BY_ID, {
     variables: { id: memberId },
   });
 
-  const [
-    createClient,
-    { data: clientData, loading: clientLoading, error: clientError },
-  ] = useMutation(CREATE_CLIENT);
+  const [findClient] = useLazyQuery(CLIENT_BY_EMAIL);
 
-  const [
-    createContract,
-    { data: contractData, loading: contractLoading, error: contractError },
-  ] = useMutation(CREATE_CONTRACT);
+  // console.log(clientData);
+
+  const [createClient] = useMutation(CREATE_CLIENT);
+
+  const [createContract] = useMutation(CREATE_CONTRACT);
 
   useEffect(() => {
     let authToken = sessionStorage.getItem("token");
     console.log(authToken);
-    if (!loading) {
-      console.log(data?.memberById.id);
-      formInital.memberId = data?.memberById.id;
-      console.log(data);
+    if (!memberLoading) {
+      console.log(memberData?.memberById.id);
+      formInital.memberId = memberData?.memberById.id;
+      console.log(memberData);
     }
 
-    if (error) {
-      console.log(error);
+    if (memberError) {
+      console.log(memberError);
     }
     // console.log(loading);
-  }, [loading]);
+  }, [memberLoading]);
 
   const isLastStep = activeStep === steps.length - 1;
 
@@ -112,33 +115,61 @@ export default function MemberIntakeForm() {
     //   // Res from photo upload route.
     //   const locations = res.data;
 
-    //   // Create Client
-    //   const client = await createClient({
-    //     variables: {
-    //       data: {
-    //         email: values.email,
-    //         firstName: values.firstName,
-    //         lastName: values.lastName,
-    //         memberId: memberId,
-    //       },
-    //     },
-    //   });
+    // Loof for Client
+    const { data: foundClientData } = await findClient({
+      variables: {
+        email: values.email,
+      },
+    });
 
-    //   await createContract({
-    //     variables: {
-    //       data: {
-    //         client: client.data.creatClient.id,
-    //         memberId: memberId,
-    //         eta: "",
-    //         stage: "",
-    //         photos: locations,
-    //         price: "",
-    //         reported: false,
-    //         notes: "",
-    //       },
-    //     },
-    //   });
-    // }
+    if (!foundClientData) {
+      // Create Client
+      console.log("no found client");
+      const { data: createdClientData } = await createClient({
+        variables: {
+          data: {
+            email: values.email,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            memberId: memberId,
+          },
+        },
+      });
+
+      console.log(createdClientData);
+
+      await createContract({
+        variables: {
+          data: {
+            client: createdClientData.creatClient.id,
+            memberId: memberId,
+            eta: "",
+            stage: "",
+            photos: [],
+            price: "",
+            reported: false,
+            notes: "",
+          },
+        },
+      });
+    } else {
+      await createContract({
+        variables: {
+          data: {
+            client: foundClientData.clientByEmail.id,
+            memberId: memberId,
+            eta: "",
+            stage: "",
+            photos: [],
+            price: "",
+            reported: false,
+            notes: "",
+          },
+        },
+      });
+    }
+
+    console.log(foundClientData);
     actions.setSubmitting(false);
 
     setActiveStep(activeStep + 1);
@@ -197,7 +228,7 @@ export default function MemberIntakeForm() {
     }
   };
 
-  if (myLoading) {
+  if (myLoading || memberLoading) {
     return (
       <Container
         container
@@ -237,12 +268,13 @@ export default function MemberIntakeForm() {
               alignItems="center"
               height="100%"
             >
-              <CheckCircleIcon sx={{ fontSize: 140, mb: 4, color: 'green' }} />
+              <CheckCircleIcon sx={{ fontSize: 140, mb: 4, color: "green" }} />
               <Typography variant="h1" align="center">
                 Thank you!
               </Typography>
               <Typography variant="p" align="center">
-                Please Allow 24 - 48 hours for ${memberId} to respond.
+                Please Allow 24 - 48 hours for {memberData.memberById.firstName}{" "}
+                to respond.
               </Typography>
             </Stack>
           </Container>
@@ -260,6 +292,7 @@ export default function MemberIntakeForm() {
                     <Typography variant="h1" align="center">
                       Member form
                     </Typography>
+
                     <Stepper activeStep={activeStep} alternativeLabel>
                       {steps.map((label) => (
                         <Step key={label}>
