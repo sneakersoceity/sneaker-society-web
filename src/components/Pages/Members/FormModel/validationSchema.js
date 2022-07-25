@@ -36,6 +36,6 @@ export default [
     [description.name]: Yup.string(),
   }),
   Yup.object().shape({
-    [files.name]: Yup.mixed(),
+    [files.name]: Yup.mixed().required("FIles are required"),
   }),
 ];

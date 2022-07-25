@@ -50,19 +50,15 @@ export default function MemberIntakeForm() {
 
   const [findClient] = useLazyQuery(CLIENT_BY_EMAIL);
 
-  // console.log(clientData);
-
   const [createClient] = useMutation(CREATE_CLIENT);
 
   const [createContract] = useMutation(CREATE_CONTRACT);
 
   useEffect(() => {
     let authToken = sessionStorage.getItem("token");
-    console.log(authToken);
+    // console.log(authToken);
     if (!memberLoading) {
-      console.log(memberData?.memberById.id);
       formInital.memberId = memberData?.memberById.id;
-      console.log(memberData);
     }
 
     if (memberError) {
@@ -182,9 +178,12 @@ export default function MemberIntakeForm() {
       _submitForm(values, actions);
     }
 
-    setActiveStep(activeStep + 1);
+    // if (values.files.length === 0) {
+    //   console.log("rooosdfa")
+    // }
     actions.setTouched({});
     actions.setSubmitting(false);
+    setActiveStep(activeStep + 1);
   };
   const handleReset = () => {
     setActiveStep(0);
@@ -282,7 +281,6 @@ export default function MemberIntakeForm() {
           <>
             <Formik
               initialValues={formInital}
-              // validateOnChange={false}
               validationSchema={currentValidationSchema}
               onSubmit={_handleSubmit}
             >

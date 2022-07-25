@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Alert, Stack, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useFormikContext } from "formik";
 import { useDropzone } from "react-dropzone";
@@ -20,6 +20,16 @@ const dropzoneStyle = {
 
 export default function PhotoUploadForm(props) {
   const formikProps = useFormikContext();
+  const [fileErrors, setFileErrors] = useState();
+  const [files, setFiles] = useState([]);
+
+  // console.log(files);
+  useEffect(() => {
+    if (formikProps.errors) {
+      setFileErrors(formikProps.errors.file);
+    }
+  }, [formikProps.errors, files]);
+
   useEffect(() => {
     if (formikProps.values.file?.length > 0) {
       setFiles(
@@ -31,12 +41,10 @@ export default function PhotoUploadForm(props) {
       );
     }
   }, []);
-  const [files, setFiles] = useState([]);
 
   const remove = (file) => {
     const newFiles = [...files];
     newFiles.splice(newFiles.indexOf(file), 1);
-    formikProps.setFieldValue("file", newFiles);
     setFiles(
       newFiles.map((file) =>
         Object.assign(file, {
@@ -44,6 +52,8 @@ export default function PhotoUploadForm(props) {
         })
       )
     );
+
+    formikProps.setFieldValue("file", newFiles.length === 0 ? null : newFiles);
   };
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -101,6 +111,7 @@ export default function PhotoUploadForm(props) {
           Uploaded Files:{" "}
           {formikProps.values.file?.length ? formikProps.values.file.length : 0}
         </Typography>
+        {fileErrors ? <Alert severity="error">{fileErrors}</Alert> : <></>}
       </Stack>
     </>
   );
