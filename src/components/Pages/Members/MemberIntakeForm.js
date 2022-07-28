@@ -94,7 +94,7 @@ export default function MemberIntakeForm() {
         formData.append("files", imageFile);
       });
 
-      // Hit the photo upload Route.
+      //   // Hit the photo upload Route.
       const res = await axios.post(
         // "https://morning-tor-15921.herokuapp.com/upload",
         `${process.env.REACT_APP_API_URL}/upload`,
@@ -112,64 +112,63 @@ export default function MemberIntakeForm() {
       // Res from photo upload route.
       const locations = res.data;
 
-    // Loof for Client
-    const { data: foundClientData } = await findClient({
-      variables: {
-        email: values.email,
-      },
-    });
-
-    if (!foundClientData) {
-      // Create Client
-      console.log("no found client");
-      const { data: createdClientData } = await createClient({
+      // Loof for Client
+      const { data: foundClientData } = await findClient({
         variables: {
-          data: {
-            email: values.email,
-            firstName: values.firstName,
-            lastName: values.lastName,
-            memberId: memberId,
-          },
+          email: values.email,
         },
       });
 
-      console.log(createdClientData);
+      if (!foundClientData) {
+        // Create Client
+        console.log("no found client");
+        const { data: createdClientData } = await createClient({
+          variables: {
+            data: {
+              email: values.email,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              memberId: memberId,
+            },
+          },
+        });
 
-      await createContract({
-        variables: {
-          data: {
-            client: createdClientData.creatClient.id,
-            memberId: memberId,
-            eta: "",
-            stage: "",
-            photos: locations,
-            price: "",
-            reported: false,
-            notes: "",
+        await createContract({
+          variables: {
+            data: {
+              client: createdClientData.creatClient.id,
+              memberId: memberId,
+              eta: "",
+              stage: "",
+              photos: [],
+              price: "",
+              reported: false,
+              notes: "",
+            },
           },
-        },
-      });
-    } else {
-      await createContract({
-        variables: {
-          data: {
-            client: foundClientData.clientByEmail.id,
-            memberId: memberId,
-            eta: "",
-            stage: "",
-            photos: [],
-            price: "",
-            reported: false,
-            notes: "",
+        });
+      } else {
+        await createContract({
+          variables: {
+            data: {
+              client: foundClientData.clientByEmail.id,
+              memberId: memberId,
+              eta: "",
+              stage: "",
+              photos: [],
+              price: "",
+              reported: false,
+              notes: "",
+            },
           },
-        },
-      });
+        });
+      }
+
+      console.log(foundClientData);
+      actions.setSubmitting(false);
+
+      setActiveStep(activeStep + 1);
     }
-
-    console.log(foundClientData);
-    actions.setSubmitting(false);
-
-    setActiveStep(activeStep + 1);
   }
 
   const _handleSubmit = (values, actions) => {
