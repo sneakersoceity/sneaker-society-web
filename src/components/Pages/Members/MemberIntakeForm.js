@@ -82,7 +82,7 @@ export default function MemberIntakeForm() {
 
   async function _submitForm(values, actions) {
     await _sleep(1000);
-    alert(JSON.stringify(values, null, 2));
+    // alert(JSON.stringify(values, null, 2));
     setMyLoading(false);
 
     if (values.file) {
