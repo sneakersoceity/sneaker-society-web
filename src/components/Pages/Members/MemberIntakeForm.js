@@ -85,32 +85,32 @@ export default function MemberIntakeForm() {
     alert(JSON.stringify(values, null, 2));
     setMyLoading(false);
 
-    // if (values.file) {
-    //   // Pull data from form
-    //   const formData = new FormData();
-    //   const { file } = values;
-    //   const fileArr = Object.keys(file).map((key) => file[key]);
-    //   fileArr.forEach((imageFile) => {
-    //     formData.append("files", imageFile);
-    //   });
+    if (values.file) {
+      // Pull data from form
+      const formData = new FormData();
+      const { file } = values;
+      const fileArr = Object.keys(file).map((key) => file[key]);
+      fileArr.forEach((imageFile) => {
+        formData.append("files", imageFile);
+      });
 
-    //   // Hit the photo upload Route.
-    //   const res = await axios.post(
-    //     // "https://morning-tor-15921.herokuapp.com/upload",
-    //     `${process.env.REACT_APP_API_URL}/upload`,
-    //     formData,
-    //     {
-    //       headers: {
-    //         "content-type": "multipart/form-data",
-    //       },
-    //       onUploadProgress: (data) => {
-    //         setProgress(Math.round((100 * data.loaded) / data.total));
-    //       },
-    //     }
-    //   );
+      // Hit the photo upload Route.
+      const res = await axios.post(
+        // "https://morning-tor-15921.herokuapp.com/upload",
+        `${process.env.REACT_APP_API_URL}/upload`,
+        formData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+          onUploadProgress: (data) => {
+            setProgress(Math.round((100 * data.loaded) / data.total));
+          },
+        }
+      );
 
-    //   // Res from photo upload route.
-    //   const locations = res.data;
+      // Res from photo upload route.
+      const locations = res.data;
 
     // Loof for Client
     const { data: foundClientData } = await findClient({
@@ -142,7 +142,7 @@ export default function MemberIntakeForm() {
             memberId: memberId,
             eta: "",
             stage: "",
-            photos: [],
+            photos: locations,
             price: "",
             reported: false,
             notes: "",
