@@ -24,6 +24,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { CREATE_CLIENT } from "./graphql/CreateClient";
 import { CLIENT_BY_EMAIL } from "./graphql/ClientByEmail";
+import ReviewForm from "./Forms/ReviewForms";
 
 const steps = ["Info", "Sneaker Info", "Photos", "Review"];
 
@@ -212,13 +213,11 @@ export default function MemberIntakeForm() {
       case 3:
         return (
           <Container>
-            <Typography variant="h1" align="center">
-              Review
-            </Typography>
+            <ReviewForm />
 
-            <Button color="secondary" variant="contained" onClick={handleReset}>
+            {/* <Button color="secondary" variant="contained" onClick={handleReset}>
               Reset
-            </Button>
+            </Button> */}
           </Container>
         );
 
@@ -254,7 +253,7 @@ export default function MemberIntakeForm() {
       <Container
         sx={{
           bgcolor: "white",
-          padding: "5rem",
+          py: 3,
           height: "100vh",
           overflowY: "scroll",
         }}
@@ -278,15 +277,34 @@ export default function MemberIntakeForm() {
             </Stack>
           </Container>
         ) : (
-          <>
+          <Container
+            // disableGutters
+            maxWidth="lg"
+            sx={{
+              // background: "purple",
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <Formik
               initialValues={formInital}
               validationSchema={currentValidationSchema}
               onSubmit={_handleSubmit}
             >
               {({ isSubbmitting, setFieldValue }) => (
-                <Form id={formId}>
-                  <>
+                <Form
+                  id={formId}
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box>
                     <Typography variant="h1" align="center">
                       Member form
                     </Typography>
@@ -299,7 +317,7 @@ export default function MemberIntakeForm() {
                       ))}
                     </Stepper>
                     {renderStepContent(activeStep, setFieldValue)}
-                  </>
+                  </Box>
 
                   <Stack direction="row" justifyContent="space-between" pt={3}>
                     {activeStep !== 0 && (
@@ -323,7 +341,7 @@ export default function MemberIntakeForm() {
                 </Form>
               )}
             </Formik>
-          </>
+          </Container>
         )}
       </Container>
     </>

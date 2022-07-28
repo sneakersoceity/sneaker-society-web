@@ -5,7 +5,7 @@ export const MyTheme = createTheme({
   palette: {
     background: {
       main: "#99D6EA",
-      primary: '#D6D6D6'
+      primary: "#D6D6D6",
     },
     primary: {
       // Purple and green play nicely together.
@@ -13,7 +13,7 @@ export const MyTheme = createTheme({
     },
     secondary: {
       // This is green.A700 as hex.
-      main:'#202020',
+      main: "#202020",
     },
   },
 });
