@@ -1,15 +1,16 @@
-import { Alert, Stack, Typography } from "@mui/material";
+import {
+  Alert,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useFormikContext } from "formik";
 import { useDropzone } from "react-dropzone";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
+import { Box, maxHeight } from "@mui/system";
 
 const dropzoneStyle = {
   width: "100%",
@@ -22,6 +23,8 @@ export default function PhotoUploadForm(props) {
   const formikProps = useFormikContext();
   const [fileErrors, setFileErrors] = useState();
   const [files, setFiles] = useState([]);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   // console.log(files);
   useEffect(() => {
@@ -71,21 +74,39 @@ export default function PhotoUploadForm(props) {
     },
   });
 
-  const thumbs = files.map((file, index) => (
-    <ImageListItem key={index}>
-      <img
-        src={file.preview}
-        style={img}
-        // Revoke data uri after image is loaded
-        onLoad={() => {
-          URL.revokeObjectURL(file.preview);
-        }}
-        onClick={() => {
-          remove(file);
-        }}
-      />
-    </ImageListItem>
-  ));
+  const myThumbs = (
+    <ImageList
+      sx={{ width: "100%", maxHeight: 300 }}
+      cols={3}
+      rowHeight={matches ? 300 : 164}
+      // rowHeight={400}
+    >
+      {files.map((item, index) => (
+        <ImageListItem key={index}>
+          <Box sx={{ width: "100%", maxHeight: "100%" }}>
+            <img
+              src={`${item.preview}`}
+              srcSet={`${item.preview}`}
+              alt={item.name}
+              style={{
+                width: "100%",
+                height: matches ? "300px" : "164px",
+                objectFit: "fit",
+              }}
+              loading="lazy"
+              // Revoke data uri after image is loaded
+              onLoad={() => {
+                URL.revokeObjectURL(item.preview);
+              }}
+              onClick={() => {
+                remove(item);
+              }}
+            />
+          </Box>
+        </ImageListItem>
+      ))}
+    </ImageList>
+  );
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
@@ -101,11 +122,8 @@ export default function PhotoUploadForm(props) {
             Drag 'n' drop some files here, or click to select files
           </Typography>
         </div>
-        {/* <ImageList cols={3} rowHeight={164}> */}
-        <Stack maxHeight={200} overflow="scroll">
-          {thumbs}
-        </Stack>
-        {/* </ImageList> */}
+
+        {myThumbs}
 
         <Typography variant="h6" pt={3}>
           Uploaded Files:{" "}
