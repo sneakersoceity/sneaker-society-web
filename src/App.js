@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import TestApi from "./components/TestApi/TestApi";
 import MemberIntakeForm from "./components/Pages/Members/MemberIntakeForm";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
+import MemberDashboard from "./components/Pages/Members/Dashboard/MemberDashboard";
 
 const ProtectedRoute = ({ user, redirectPath = "/login", children }) => {
   let authToken = sessionStorage.getItem("token");
@@ -16,10 +17,9 @@ const ProtectedRoute = ({ user, redirectPath = "/login", children }) => {
     if (user) {
       console.log(user);
     } else {
-      console.log("User Signed out");
+      console.log("Nothign");
     }
   });
-  console.log(auth);
 
   if (!authToken) {
     return <Navigate to={redirectPath} replace />;
@@ -39,6 +39,7 @@ function App() {
         <Route path="/test" element={<TestApi />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/member">
+          <Route path="" element={<MemberDashboard />} />
           <Route path=":memberId" element={<MemberIntakeForm />} />
         </Route>
       </Routes>

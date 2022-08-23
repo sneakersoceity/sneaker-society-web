@@ -52,7 +52,7 @@ export const Sidebar = () => {
     auth
       .signOut()
       .then(() => {
-        sessionStorage.removeItem("Auth Token");
+        sessionStorage.removeItem("token");
       })
       .catch((e) => {
         console.log(e);

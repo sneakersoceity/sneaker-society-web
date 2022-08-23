@@ -57,23 +57,20 @@ export const LoginForm = () => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        sessionStorage.setItem(
-          "token",
-          token
-        );
-        // The signed-in user info.
-        const user = result.user;
-        console.log(user.accessToken)
 
+        // Set the token somewhere
+        sessionStorage.setItem("token", token);
+        // The signed-in user info.
+
+        const user = result.user;
         navigate("/");
-        // ...
       })
       .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
-        console.log(errorCode)
+        console.log(errorCode);
         const errorMessage = error.message;
-        console.log(errorMessage)
+        console.log(errorMessage);
 
         // The email of the user's account used.
         // const email = error.email;
