@@ -100,23 +100,23 @@ const Profit = () => (
       justifyContent: "center",
       height: "185px",
     }}
-    bgcolor="green"
+    bgcolor="white"
   >
     <Typography
       style={{
         fontSize: "40px",
         fontWeight: "bold",
       }}
-      color="white"
+      color="black"
     >
       Profit
     </Typography>
     <Typography
       style={{
-        fontSize: "40px",
+        fontSize: "64px",
         fontWeight: "bold",
       }}
-      color="white"
+      color="black"
     >
       $111.33
     </Typography>
@@ -133,14 +133,14 @@ const AVGTime = () => (
       justifyContent: "center",
       height: "185px",
     }}
-    bgcolor="green"
+    bgcolor="white"
   >
     <Typography
       style={{
         fontSize: "40px",
         fontWeight: "bold",
       }}
-      color="white"
+      color="black"
     >
       AVG Time
     </Typography>
@@ -149,7 +149,7 @@ const AVGTime = () => (
         fontSize: "40px",
         fontWeight: "bold",
       }}
-      color="white"
+      color="black"
     >
       5 Days
     </Typography>
