@@ -9,6 +9,7 @@ import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import MemberDashboard from "./components/Pages/Members/Dashboard/MemberDashboard";
 import { useAuth } from "./auth/auth";
 import ComingSoon from "./components/Pages/ComingSoon/ComingSoon";
+import NotFound from "./components/Pages/NotFound/NotFound";
 
 const ProtectedRoute = ({ user, children, redirectPath }) => {
   if (!user?.loggedIn) {
@@ -39,6 +40,7 @@ function App() {
             <Route exact path="messages" element={<ComingSoon />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
