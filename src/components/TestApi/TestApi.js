@@ -32,8 +32,8 @@ export default function TestApi() {
   }, [loading]);
   return (
     <div>
-      <p>Test api yo</p>
-      <h1>{process.env.REACT_APP_API_URL}</h1>
+      <p style={{ color: "white" }}>Test api yo</p>
+      {/* <h1>{process.env.REACT_APP_API_URL}</h1> */}
     </div>
   );
 }

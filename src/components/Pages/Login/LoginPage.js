@@ -2,10 +2,29 @@ import { Box, Button, Grid } from "@mui/material";
 import React, { useState } from "react";
 import { Highlights } from "./_components/Highlights/Highlights";
 import { LoginForm } from "./_components/LoginForm/LoginForm";
+import { useAuth } from "../../../auth/auth";
+import { useNavigate } from "react-router-dom";
+
 export default function LoginPage() {
+  let navigate = useNavigate();
+
+  const { user, login } = useAuth();
+  const handleLoginClick = () => {
+    const testUser = {
+      name: "Alanis",
+      loggedIn: true
+    };
+
+    login(testUser);
+    console.log(user);
+
+    console.log("Login");
+    navigate("/member");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Button variant="contained" color="secondary">
+      <Button variant="contained" color="secondary" onClick={handleLoginClick}>
         Login
       </Button>
       {/* <Grid container height="100vh">

@@ -7,14 +7,12 @@ import TestApi from "./components/TestApi/TestApi";
 import MemberIntakeForm from "./components/Pages/Members/MemberIntakeForm";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import MemberDashboard from "./components/Pages/Members/Dashboard/MemberDashboard";
-
+import { useAuth } from "./auth/auth";
 const testUser = {
   loggedIn: true,
 };
 
 const ProtectedRoute = ({ user, children, redirectPath }) => {
-
-
   if (!user?.loggedIn) {
     return <Navigate to={redirectPath} replace />;
   }
@@ -23,6 +21,7 @@ const ProtectedRoute = ({ user, children, redirectPath }) => {
 };
 
 function App() {
+  const { user } = useAuth();
   return (
     <div className="App">
       <Routes>
@@ -33,9 +32,7 @@ function App() {
         <Route path="/test" element={<TestApi />} />
 
         <Route path="/member">
-          <Route
-            element={<ProtectedRoute user={testUser} redirectPath="/login" />}
-          >
+          <Route element={<ProtectedRoute user={user} redirectPath="/login" />}>
             <Route path="" element={<MemberDashboard />} />
           </Route>
           <Route path=":memberId" element={<MemberIntakeForm />} />

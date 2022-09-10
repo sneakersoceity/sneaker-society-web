@@ -156,6 +156,7 @@ const AVGTime = () => (
 );
 
 const MemberDashboard = () => {
+
   return (
     <>
       <Box

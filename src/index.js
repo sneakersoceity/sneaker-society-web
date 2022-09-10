@@ -15,7 +15,7 @@ import {
 import { MyTheme } from "./theme/theme";
 import { setContext } from "@apollo/client/link/context";
 import { GlobalStyles } from "@mui/material";
-import { AuthProvider } from "./auth/AuthProvider";
+import { AuthProvider } from "./auth/auth";
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_API_URL}/graphql`,

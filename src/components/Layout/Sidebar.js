@@ -9,6 +9,7 @@ import { FiSettings } from "react-icons/fi";
 import { MdHome, MdListAlt, MdOutlineMessage } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { useAuth } from "../../auth/auth";
 
 const SidebarLink = ({ text, Icon, notificationNumber, onClick }) => {
   return (
@@ -46,19 +47,10 @@ const SidebarLink = ({ text, Icon, notificationNumber, onClick }) => {
 };
 
 export const Sidebar = () => {
-  let navigate = useNavigate();
-  const auth = getAuth();
+  const { logOut } = useAuth();
 
   const handleLogout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        sessionStorage.removeItem("token");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    navigate("/login");
+    logOut();
   };
 
   return (
