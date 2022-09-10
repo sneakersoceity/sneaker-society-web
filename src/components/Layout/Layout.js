@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import React from "react";
-import Mysociety from "../Pages/Mysociety/Mysociety";
+import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 
 export default function Layout() {
@@ -21,13 +21,13 @@ export default function Layout() {
       </Box>
       <Box
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "green",
           width: "calc(100% - 250px)",
           float: "right",
           height: "100%",
         }}
       >
-        <Mysociety />
+        <Outlet />
       </Box>
     </Box>
   );

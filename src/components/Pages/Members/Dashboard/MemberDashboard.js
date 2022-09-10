@@ -1,6 +1,5 @@
 import { Box, Typography, Grid, Stack } from "@mui/material";
 import { Container, fontWeight, height } from "@mui/system";
-import { Sidebar } from "../../../Layout/Sidebar";
 import React from "react";
 
 const StatusCard = ({ title, amount }) => (
@@ -156,21 +155,12 @@ const AVGTime = () => (
 );
 
 const MemberDashboard = () => {
-
   return (
     <>
       <Box
         sx={{
-          width: "250px",
-          position: "absolute",
-        }}
-      >
-        <Sidebar />
-      </Box>
-      <Box
-        sx={{
           backgroundColor: "black",
-          width: "calc(100% - 250px)",
+          width: "100%",
           float: "right",
           height: "100%",
         }}

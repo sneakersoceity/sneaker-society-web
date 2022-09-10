@@ -1,4 +1,4 @@
-import { Badge, Box, Link, Stack, Typography } from "@mui/material";
+import { Badge, Box, Stack, Typography } from "@mui/material";
 import { ReactComponent as SSLogo } from "../../assets/white_logo.svg";
 import { GiConverseShoe } from "react-icons/gi";
 import { GrGroup } from "react-icons/gr";
@@ -7,11 +7,11 @@ import { IoMdStats } from "react-icons/io";
 import { AiOutlineCompass } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import { MdHome, MdListAlt, MdOutlineMessage } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, Outlet } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "../../auth/auth";
 
-const SidebarLink = ({ text, Icon, notificationNumber, onClick }) => {
+const SidebarLink = ({ text, Icon, notificationNumber, onClick, link }) => {
   return (
     <Box
       sx={{
@@ -40,7 +40,13 @@ const SidebarLink = ({ text, Icon, notificationNumber, onClick }) => {
           },
         }}
       >
-        {text}
+        <Link
+          style={{ textDecoration: "none", color: "black" }}
+          to={link ? link : "/member"}
+        >
+          {text}
+        </Link>
+        {/* <Outlet /> */}
       </Typography>
     </Box>
   );
@@ -76,11 +82,16 @@ export const Sidebar = () => {
         <SSLogo width="60%" />
 
         <SidebarLink text="Home" Icon={MdHome} />
-        <SidebarLink text="Statistics" Icon={IoMdStats} />
-        {/* <SidebarLink text="Groups" notificationNumber={2} Icon={GrGroup} /> */}
-        <SidebarLink text="Projects" Icon={MdListAlt} />
+        <SidebarLink
+          text="Statistics"
+          Icon={IoMdStats}
+          link="/member/stats"
+        />
+        {/* <SidebarLink text="Groups" notificationNumber={2} Icon={GrGroup} />. */}
+        <SidebarLink text="Projects" Icon={MdListAlt} link="/member/projects" />
         <SidebarLink
           text="Messages"
+          link="/messages"
           notificationNumber={3}
           Icon={MdOutlineMessage}
         />
@@ -103,6 +114,7 @@ export const Sidebar = () => {
           <SidebarLink
             text="Settings"
             Icon={FiSettings}
+            link="login"
             onClick={handleLogout}
           />
         </Box>

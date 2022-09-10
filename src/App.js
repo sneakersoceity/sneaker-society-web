@@ -8,9 +8,7 @@ import MemberIntakeForm from "./components/Pages/Members/MemberIntakeForm";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import MemberDashboard from "./components/Pages/Members/Dashboard/MemberDashboard";
 import { useAuth } from "./auth/auth";
-const testUser = {
-  loggedIn: true,
-};
+import ComingSoon from "./components/Pages/ComingSoon/ComingSoon";
 
 const ProtectedRoute = ({ user, children, redirectPath }) => {
   if (!user?.loggedIn) {
@@ -25,17 +23,18 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route element={<ProtectedRoute redirectPath="/login" />}>
-          <Route path="/" element={<Layout />} />
-        </Route>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/test" element={<TestApi />} />
-
-        <Route path="/member">
-          <Route element={<ProtectedRoute user={user} redirectPath="/login" />}>
-            <Route path="" element={<MemberDashboard />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/member">
+            <Route
+              element={<ProtectedRoute user={user} redirectPath="/login" />}
+            >
+              <Route path="" element={<MemberDashboard />} />
+            </Route>
+            <Route path=":memberId" element={<MemberIntakeForm />} />
+            <Route path="stats" element={<ComingSoon />} />
+            <Route exact path="projects" element={<ComingSoon />} />
           </Route>
-          <Route path=":memberId" element={<MemberIntakeForm />} />
         </Route>
       </Routes>
     </div>
