@@ -25,9 +25,11 @@ function App() {
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/test" element={<TestApi />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
         <Route path="/member">
-          <Route path="" element={<MemberDashboard />} />
+          <Route element={<ProtectedRoute redirectPath="/login" />}>
+            <Route path="" element={<MemberDashboard />} />
+          </Route>
           <Route path=":memberId" element={<MemberIntakeForm />} />
         </Route>
       </Routes>
