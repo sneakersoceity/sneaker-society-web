@@ -8,8 +8,14 @@ import MemberIntakeForm from "./components/Pages/Members/MemberIntakeForm";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import MemberDashboard from "./components/Pages/Members/Dashboard/MemberDashboard";
 
+const testUser = {
+  loggedIn: true,
+};
+
 const ProtectedRoute = ({ user, children, redirectPath }) => {
-  if (!user) {
+
+
+  if (!user?.loggedIn) {
     return <Navigate to={redirectPath} replace />;
   }
 
@@ -27,7 +33,9 @@ function App() {
         <Route path="/test" element={<TestApi />} />
 
         <Route path="/member">
-          <Route element={<ProtectedRoute redirectPath="/login" />}>
+          <Route
+            element={<ProtectedRoute user={testUser} redirectPath="/login" />}
+          >
             <Route path="" element={<MemberDashboard />} />
           </Route>
           <Route path=":memberId" element={<MemberIntakeForm />} />
