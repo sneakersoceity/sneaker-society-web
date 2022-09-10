@@ -35,6 +35,9 @@ function App() {
             <Route path="stats" element={<ComingSoon />} />
             <Route exact path="projects" element={<ComingSoon />} />
           </Route>
+          <Route element={<ProtectedRoute user={user} redirectPath="/login" />}>
+            <Route exact path="messages" element={<ComingSoon />} />
+          </Route>
         </Route>
       </Routes>
     </div>
