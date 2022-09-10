@@ -1,5 +1,6 @@
 import { Box, Typography, Grid, Stack } from "@mui/material";
 import { Container, fontWeight, height } from "@mui/system";
+import { Sidebar } from "../../../Layout/Sidebar";
 import React from "react";
 
 const StatusCard = ({ title, amount }) => (
@@ -43,7 +44,7 @@ const TestBox400 = () => (
 );
 
 const Percent = ({ amount }) => (
-  <Box bgcolor={amount > 0 ? "#7AFF64" : "#FF8D8D" } px={3} borderRadius="50px">
+  <Box bgcolor={amount > 0 ? "#7AFF64" : "#FF8D8D"} px={3} borderRadius="50px">
     <Typography
       style={{
         fontSize: "40px",
@@ -88,8 +89,6 @@ const CardWithPercent = ({ title, amount, percent }) => (
     <Percent amount={percent} />
   </Box>
 );
-
-
 
 const Profit = () => (
   <Box
@@ -158,48 +157,71 @@ const AVGTime = () => (
 
 const MemberDashboard = () => {
   return (
-    <Container>
-      <Typography variant="h1" color="white">
-        Member Dashboard
-      </Typography>
-      <Stack
-        direction="column"
-        justifyContent="space-between"
-        height="100%"
-        alignItems="center"
+    <>
+      <Box
+        sx={{
+          width: "250px",
+          position: "absolute",
+        }}
       >
-        <Grid container spacing={3} pt={4}>
-          <Grid item xs={12} md={4}>
-            <StatusCard title="Not Started" amount={5} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StatusCard title="Started" amount={12} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StatusCard title="Finished" amount={23} />
-          </Grid>
-        </Grid>
+        <Sidebar />
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: "black",
+          width: "calc(100% - 250px)",
+          float: "right",
+          height: "100%",
+        }}
+      >
+        <Container>
+          {/* <Typography variant="h1" color="white">
+            Member Dashboard
+          </Typography> */}
+          <Stack
+            direction="column"
+            justifyContent="space-between"
+            height="100%"
+            alignItems="center"
+          >
+            <Grid container spacing={3} pt={4}>
+              <Grid item xs={12} md={4}>
+                <StatusCard title="Not Started" amount={5} />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <StatusCard title="Started" amount={12} />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <StatusCard title="Finished" amount={23} />
+              </Grid>
+            </Grid>
 
-        <Grid container spacing={3} pt={4}>
-          <Grid item xs={12} md={4}>
-            <Stack
-              direction="column"
-              justifyContent="space-between"
-              height="100%"
-            >
-              <Profit />
-              <AVGTime />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CardWithPercent title="New Clients" amount={23} percent={2.7} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-          <CardWithPercent title="Requests" amount={4} percent={-6} />
-          </Grid>
-        </Grid>
-      </Stack>
-    </Container>
+            <Grid container spacing={3} pt={4}>
+              <Grid item xs={12} md={4}>
+                <Stack
+                  direction="column"
+                  justifyContent="space-between"
+                  height="100%"
+                >
+                  <Profit />
+                  <AVGTime />
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <CardWithPercent
+                  title="New Clients"
+                  amount={23}
+                  percent={2.7}
+                />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <CardWithPercent title="Requests" amount={4} percent={-6} />
+              </Grid>
+            </Grid>
+          </Stack>
+        </Container>
+      </Box>
+    </>
   );
 };
 

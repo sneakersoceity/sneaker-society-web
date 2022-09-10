@@ -13,7 +13,7 @@ export const MyTheme = createTheme({
     },
     secondary: {
       // This is green.A700 as hex.
-      main: "#202020",
+      main: "#ff0000",
     },
   },
 });

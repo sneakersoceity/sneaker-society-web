@@ -3,9 +3,10 @@ import { ReactComponent as SSLogo } from "../../assets/white_logo.svg";
 import { GiConverseShoe } from "react-icons/gi";
 import { GrGroup } from "react-icons/gr";
 import { BsSafe2 } from "react-icons/bs";
+import { IoMdStats } from "react-icons/io";
 import { AiOutlineCompass } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
-import { MdOutlineMessage } from "react-icons/md";
+import { MdHome, MdListAlt, MdOutlineMessage } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 
@@ -82,13 +83,13 @@ export const Sidebar = () => {
       >
         <SSLogo width="60%" />
 
-        <SidebarLink text="My Society" Icon={GiConverseShoe} />
-        <SidebarLink text="Explore" Icon={AiOutlineCompass} />
-        <SidebarLink text="Groups" notificationNumber={2} Icon={GrGroup} />
-        <SidebarLink text="The Vault" Icon={BsSafe2} />
+        <SidebarLink text="Home" Icon={MdHome} />
+        <SidebarLink text="Statistics" Icon={IoMdStats} />
+        {/* <SidebarLink text="Groups" notificationNumber={2} Icon={GrGroup} /> */}
+        <SidebarLink text="Projects" Icon={MdListAlt} />
         <SidebarLink
           text="Messages"
-          notificationNumber={17}
+          notificationNumber={3}
           Icon={MdOutlineMessage}
         />
       </Stack>
