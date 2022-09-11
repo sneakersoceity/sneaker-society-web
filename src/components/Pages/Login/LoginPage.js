@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Container, Grid } from "@mui/material";
 import React, { useState } from "react";
 import { Highlights } from "./_components/Highlights/Highlights";
 import { LoginForm } from "./_components/LoginForm/LoginForm";
@@ -12,7 +12,7 @@ export default function LoginPage() {
   const handleLoginClick = () => {
     const testUser = {
       name: "Alanis",
-      loggedIn: true
+      loggedIn: true,
     };
 
     login(testUser);
@@ -23,22 +23,37 @@ export default function LoginPage() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Button variant="contained" color="secondary" onClick={handleLoginClick}>
-        Login
-      </Button>
-      {/* <Grid container height="100vh">
+    <Container>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Box bgcolor="purple"  >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleLoginClick}
+          >
+            Login
+          </Button>
+        </Box>
+        {/* <Grid container height="100vh">
         <Grid md={6}>
-          <Box width="100%" height="100%">
-            <LoginForm />
-          </Box>
+        <Box width="100%" height="100%">
+        <LoginForm />
+        </Box>
         </Grid>
         <Grid md={6}>
-          <Box width="100%" height="100%">
-            <Highlights />
-          </Box>
+        <Box width="100%" height="100%">
+        <Highlights />
+        </Box>
         </Grid>
       </Grid> */}
-    </Box>
+      </Box>
+    </Container>
   );
 }

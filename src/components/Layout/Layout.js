@@ -1,9 +1,19 @@
 import { Box } from "@mui/system";
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/auth";
 import { Sidebar } from "./Sidebar";
 
 export default function Layout() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login", { replace: true });
+    }
+  }, []);
+
   return (
     <Box
       sx={{
