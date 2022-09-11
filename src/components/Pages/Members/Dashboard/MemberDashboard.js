@@ -1,8 +1,10 @@
 import { Height } from "@mui/icons-material";
 import { Box, Typography, Grid, Stack, Container } from "@mui/material";
 import { fontWeight, height } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "../../Dashboard/Dashboard";
+import { useQuery } from "@apollo/client";
+import { MEMBER_STATS } from "./graphql/MemberStats";
 
 const StatusCard = ({ title, amount }) => (
   <Box
@@ -157,6 +159,9 @@ const AVGTime = () => (
 );
 
 const MemberDashboard = () => {
+  const { loading, error, data } = useQuery(MEMBER_STATS, {
+    variables: { id: "631df9a8a9e499f3251e951d" },
+  });
   return (
     <Container
       style={{
@@ -170,13 +175,19 @@ const MemberDashboard = () => {
 
       <Grid container spacing={3} pt={4}>
         <Grid item xs={12} md={4}>
-          <StatusCard title="Not Started" amount={5} />
+          <StatusCard
+            title="Not Started"
+            amount={data?.memberStatsById.notStarted}
+          />
         </Grid>
         <Grid item xs={12} md={4}>
-          <StatusCard title="Started" amount={12} />
+          <StatusCard title="Started" amount={data?.memberStatsById.started} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <StatusCard title="Finished" amount={24} />
+          <StatusCard
+            title="Finished"
+            amount={data?.memberStatsById.finished}
+          />
         </Grid>
       </Grid>
 
