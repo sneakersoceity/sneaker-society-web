@@ -21,7 +21,7 @@ export default function Layout() {
       </Box>
       <Box
         sx={{
-          backgroundColor: "green",
+          backgroundColor: "black",
           width: "calc(100% - 250px)",
           float: "right",
           height: "100%",

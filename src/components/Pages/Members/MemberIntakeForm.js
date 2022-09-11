@@ -112,7 +112,7 @@ export default function MemberIntakeForm() {
       // Res from photo upload route.
       const locations = res.data;
 
-      // Loof for Client
+      // Look for Client
       const { data: foundClientData } = await findClient({
         variables: {
           email: values.email,
@@ -140,7 +140,7 @@ export default function MemberIntakeForm() {
               memberId: memberId,
               eta: "",
               stage: "",
-              photos: [],
+              photos: locations,
               price: "",
               reported: false,
               notes: "",

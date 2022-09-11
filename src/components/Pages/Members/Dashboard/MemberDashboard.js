@@ -1,6 +1,8 @@
-import { Box, Typography, Grid, Stack } from "@mui/material";
-import { Container, fontWeight, height } from "@mui/system";
+import { Height } from "@mui/icons-material";
+import { Box, Typography, Grid, Stack, Container } from "@mui/material";
+import { fontWeight, height } from "@mui/system";
 import React from "react";
+import Dashboard from "../../Dashboard/Dashboard";
 
 const StatusCard = ({ title, amount }) => (
   <Box
@@ -156,39 +158,33 @@ const AVGTime = () => (
 
 const MemberDashboard = () => {
   return (
-    <>
-      <Box
-        sx={{
-          backgroundColor: "black",
-          width: "100%",
-          float: "right",
-          height: "100%",
-        }}
-      >
-        <Container>
-          {/* <Typography variant="h1" color="white">
-            Member Dashboard
-          </Typography> */}
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            height="100%"
-            alignItems="center"
-          >
-            <Grid container spacing={3} pt={4}>
-              <Grid item xs={12} md={4}>
-                <StatusCard title="Not Started" amount={5} />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <StatusCard title="Started" amount={12} />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <StatusCard title="Finished" amount={23} />
-              </Grid>
-            </Grid>
+    <Container
+      style={{
+        height: "100vh",
+        overflow: "scroll",
+      }}
+    >
+      <Typography variant="h1" color="white">
+        Dashboard
+      </Typography>
 
-            <Grid container spacing={3} pt={4}>
-              <Grid item xs={12} md={4}>
+      <Grid container spacing={3} pt={4}>
+        <Grid item xs={12} md={4}>
+          <StatusCard title="Not Started" amount={5} />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <StatusCard title="Started" amount={12} />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <StatusCard title="Finished" amount={24} />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3} pt={4}>
+        <Grid item xs={12}>
+          <Dashboard />
+        </Grid>
+        {/* <Grid item xs={12} md={4}>
                 <Stack
                   direction="column"
                   justifyContent="space-between"
@@ -207,12 +203,9 @@ const MemberDashboard = () => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <CardWithPercent title="Requests" amount={4} percent={-6} />
-              </Grid>
-            </Grid>
-          </Stack>
-        </Container>
-      </Box>
-    </>
+              </Grid> */}
+      </Grid>
+    </Container>
   );
 };
 

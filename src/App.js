@@ -24,7 +24,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<Layout />}>
           <Route path="/member">
             <Route
@@ -32,7 +31,6 @@ function App() {
             >
               <Route path="" element={<MemberDashboard />} />
             </Route>
-            <Route path=":memberId" element={<MemberIntakeForm />} />
             <Route path="stats" element={<ComingSoon />} />
             <Route exact path="projects" element={<ComingSoon />} />
           </Route>
@@ -40,6 +38,8 @@ function App() {
             <Route exact path="messages" element={<ComingSoon />} />
           </Route>
         </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="member/:memberId" element={<MemberIntakeForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useTheme } from "@emotion/react";
 import {
+  Box,
   Button,
   TableContainer,
   TableCell,
@@ -10,7 +11,7 @@ import {
   TableBody,
   Container,
   Typography,
-  Divider
+  Divider,
 } from "@mui/material";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -21,7 +22,7 @@ export default function Dashboard() {
   const [rows, setRows] = useState([]);
 
   const { loading, error, data } = useQuery(MEMBER_CONTRACTS, {
-    variables: { id: "62ca2ef5a15134e081a969d7" },
+    variables: { id: "631ce506a48f7d22a00f8107" },
   });
 
   useEffect(() => {
@@ -42,53 +43,73 @@ export default function Dashboard() {
     }
   }, [loading]);
 
-  return (
-    <Container container sx={{
-      bgcolor: 'white',
-      height: '100vh'
-    }}>
-      <Typography variant="h1" align="center" color="primary" pb={4}>
-        Dashboard
-      </Typography>
-      <TableContainer
+  if (rows.length > 0) {
+    return (
+      <Container
+        container
         sx={{
           bgcolor: "white",
-          height: "100%",
+          height: '380px'
         }}
       >
-        {" "}
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Id</TableCell>
-              <TableCell align="center">Name</TableCell>
-              <TableCell align="center">Date</TableCell>
-              <TableCell align="center">Created</TableCell>
-              <TableCell align="center"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow
-                key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {index + 1}
-                </TableCell>
-                <TableCell align="center">{row.client}</TableCell>
-                <TableCell align="center">{row.date}</TableCell>
-                <TableCell align="center">{row.time}</TableCell>
-                <TableCell align="center">
-                  <Button color="secondary" variant="contained">
-                    View More Info
-                  </Button>
-                </TableCell>
+        <TableContainer
+          sx={{
+            bgcolor: "white",
+          }}
+        >
+          <Table sx={{ minWidth: 650, maxHeight: 380 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell align="center">Name</TableCell>
+                <TableCell align="center">Date</TableCell>
+                <TableCell align="center">Created</TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+            </TableHead>
+
+            <TableBody>
+              {rows.map((row, index) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell align="center">{row.client}</TableCell>
+                  <TableCell align="center">{row.date}</TableCell>
+                  <TableCell align="center">{row.time}</TableCell>
+                  <TableCell align="center">
+                    <Button color="secondary" variant="contained">
+                      View More Info
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    );
+  }
+
+  return (
+    <>
+      <Box
+        display="flex"
+        flexDirection="column"
+        bgcolor="white"
+        width="100%"
+        height="380px"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant="h4">No Quotes</Typography>
+        <Typography variant="h6" fontWeight={300} pt={2}> 
+          Send out your link to start getting quotes!
+        </Typography>
+      </Box>
+    </>
   );
-}
+} 
