@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import ContractModal from "./ContractModal";
 import { MEMBER_CONTRACTS } from "./graphql/MemberContracts";
 
@@ -130,9 +131,26 @@ export default function Dashboard() {
         alignItems="center"
       >
         <Typography variant="h4">No Quotes</Typography>
-        <Typography variant="h6" fontWeight={300} pt={2}>
+        <Typography variant="h6" fontWeight={300} py={2}>
           Send out your link to start getting quotes!
         </Typography>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `${window.location.origin}/member/631df9a8a9e499f3251e951d`
+            );
+          }}
+        >
+          Copy to clipboard
+        </Button>
+        {/* <a
+          href={`${window.location.origin}/member/631df9a8a9e499f3251e951d`}
+          target="blank"
+          replace
+        > */}
+        {/* </a> */}
       </Box>
     </>
   );

@@ -32,10 +32,10 @@ export default function LoginPage() {
           height: "100vh",
         }}
       >
-        <Box bgcolor="purple"  >
+        <Box>
           <Button
             variant="contained"
-            color="primary"
+            color="secondary"
             onClick={handleLoginClick}
           >
             Login
