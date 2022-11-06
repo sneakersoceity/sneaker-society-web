@@ -10,6 +10,7 @@ import { MdHome, MdListAlt, MdOutlineMessage } from "react-icons/md";
 import { useNavigate, Link, Outlet } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "../../auth/auth";
+import { GrLogout } from "react-icons/gr";
 
 const SidebarLink = ({ text, Icon, notificationNumber, onClick, link }) => {
   return (
@@ -82,11 +83,7 @@ export const Sidebar = () => {
         <SSLogo width="60%" />
 
         <SidebarLink text="Home" Icon={MdHome} />
-        <SidebarLink
-          text="Statistics"
-          Icon={IoMdStats}
-          link="/member/stats"
-        />
+        <SidebarLink text="Statistics" Icon={IoMdStats} link="/member/stats" />
         {/* <SidebarLink text="Groups" notificationNumber={2} Icon={GrGroup} />. */}
         <SidebarLink text="Projects" Icon={MdListAlt} link="/member/projects" />
         <SidebarLink
@@ -112,8 +109,8 @@ export const Sidebar = () => {
           }}
         >
           <SidebarLink
-            text="Settings"
-            Icon={FiSettings}
+            text="Logout"
+            Icon={GrLogout}
             link="login"
             onClick={handleLogout}
           />
