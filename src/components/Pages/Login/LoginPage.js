@@ -42,17 +42,17 @@ export default function LoginPage() {
           </Button>
         </Box>
         {/* <Grid container height="100vh">
-        <Grid md={6}>
-        <Box width="100%" height="100%">
-        <LoginForm />
-        </Box>
-        </Grid>
-        <Grid md={6}>
-        <Box width="100%" height="100%">
-        <Highlights />
-        </Box>
-        </Grid>
-      </Grid> */}
+          <Grid md={6}>
+            <Box width="100%" height="100%">
+              <LoginForm />
+            </Box>
+          </Grid>
+          <Grid md={6}>
+            <Box width="100%" height="100%">
+              <Highlights />
+            </Box>
+          </Grid>
+        </Grid> */}
       </Box>
     </Container>
   );
