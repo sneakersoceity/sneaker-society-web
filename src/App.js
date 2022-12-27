@@ -2,7 +2,7 @@ import "./App.css";
 import {
   Route,
   //  Link,
-  Routes
+  Routes,
 } from "react-router-dom";
 // import Mysociety from "./components/Pages/Mysociety";
 // import Layout from "./components/Layout";
@@ -16,6 +16,7 @@ import {
 // } from "react";
 // import axios from "axios";
 import { ComingSoon } from "./components/Pages/Coming Soon/ComingSoon";
+import ConfirmationPage from "./components/Pages/Coming Soon/ConfirmationPage";
 
 function App() {
   // useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
       <Routes>
         {/* <Route path="*" element={<LoginPage />} /> */}
         <Route path="*" element={<ComingSoon />} />
+        {/* <Route path="*" element={<ConfirmationPage />} /> */}
       </Routes>
     </div>
   );
