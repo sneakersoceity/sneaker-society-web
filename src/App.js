@@ -20,6 +20,7 @@ const ProtectedRoute = ({ user, children, redirectPath }) => {
 };
 
 function App() {
+  //hello
   const { user } = useAuth();
   return (
     <div className="App">
