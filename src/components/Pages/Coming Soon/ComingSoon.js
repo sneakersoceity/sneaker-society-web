@@ -36,18 +36,35 @@ const MyCompSecond = styled("div")({
 });
 export const ComingSoon = () => {
   const [form, setForm] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const emailValidation = (e) => {
+    // e.preventDefault();
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9+-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if (regEx.test(email)) {
+      setMessage("Email Is Valid");
+    } else if (!regEx.test(email) && email !== "") {
+      setMessage("Email is Not Valid");
+    } else {
+      setMessage("");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    setEmail(e.target.value);
+  };
+
   const [createEmail] = useMutation(CREATE_EMAIL);
 
   // will update the name and value of the email
-  const updateField = (name, value) => {
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
+  // const updateField = (name, value) => {
+  //   setForm({
+  //     ...form,
+  //     [name]: value,
+  //   });
+  // };
 
   // async function createNewEmail() {
   //   const res = await createEmail({
@@ -59,34 +76,6 @@ export const ComingSoon = () => {
   //   });
   //   return res;
   // }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // setIsLoading(true);
-    setError("");
-    setSuccess("");
-    fetch(createEmail, {
-      variables: {
-        data: {
-          email: "",
-        },
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setSuccess("Email Successfully Entered");
-        }
-      });
-  };
-
-  // how we will submit to the backend
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
 
   return (
     <Box
@@ -184,6 +173,10 @@ export const ComingSoon = () => {
             }}
             placeholder="Enter your email address"
             required
+            id="email"
+            type="email"
+            value={email}
+            onChange={handleSubmit}
           ></input>
           <button
             style={{
@@ -193,10 +186,12 @@ export const ComingSoon = () => {
               marginLeft: "0.5rem",
               fontSize: "1.1rem",
             }}
+            onClick={emailValidation}
           >
             Sign Up
           </button>
         </div>
+        <p style={{ color: "white" }}>{message}</p>
       </MyCompSecond>
     </Box>
   );
