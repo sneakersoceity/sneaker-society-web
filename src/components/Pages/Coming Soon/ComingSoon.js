@@ -39,17 +39,17 @@ export const ComingSoon = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const emailValidation = (e) => {
-    // e.preventDefault();
-    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9+-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-    if (regEx.test(email)) {
-      setMessage("Email Is Valid");
-    } else if (!regEx.test(email) && email !== "") {
-      setMessage("Email is Not Valid");
-    } else {
-      setMessage("");
-    }
-  };
+  // const emailValidation = (e) => {
+  //   // e.preventDefault();
+  //   const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9+-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+  //   if (regEx.test(email)) {
+  //     setMessage("Email Is Valid");
+  //   } else if (!regEx.test(email) && email !== "") {
+  //     setMessage("Email is Not Valid");
+  //   } else {
+  //     setMessage("");
+  //   }
+  // };
 
   const handleSubmit = (e) => {
     // e.preventDefault();
@@ -58,24 +58,16 @@ export const ComingSoon = () => {
 
   const [createEmail] = useMutation(CREATE_EMAIL);
 
-  // will update the name and value of the email
-  // const updateField = (name, value) => {
-  //   setForm({
-  //     ...form,
-  //     [name]: value,
-  //   });
-  // };
-
-  // async function createNewEmail() {
-  //   const res = await createEmail({
-  //     variables: {
-  //       data: {
-  //         email: "",
-  //       },
-  //     },
-  //   });
-  //   return res;
-  // }
+  async function createNewEmail() {
+    const res = await createEmail({
+      variables: {
+        data: {
+          email: "test222@gmail.com",
+        },
+      },
+    });
+    return res;
+  }
 
   return (
     <Box
@@ -164,7 +156,7 @@ export const ComingSoon = () => {
           </form> */}
         {/* </Typography> */}
         <div style={{ display: "flex", height: "3rem" }}>
-          <input
+          {/* <input
             style={{
               border: "none",
               borderRadius: "4px",
@@ -177,7 +169,7 @@ export const ComingSoon = () => {
             type="email"
             value={email}
             onChange={handleSubmit}
-          ></input>
+          ></input> */}
           <button
             style={{
               background: "yellow",
@@ -186,7 +178,7 @@ export const ComingSoon = () => {
               marginLeft: "0.5rem",
               fontSize: "1.1rem",
             }}
-            onClick={emailValidation}
+            onClick={createNewEmail}
           >
             Sign Up
           </button>
