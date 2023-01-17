@@ -51,7 +51,8 @@ ReactDOM.render(
         <ApolloProvider client={client}>
           <AuthProvider>
             <App />
-            {/* hello */}
+
+            {/* hello from Gerardo */}
           </AuthProvider>
         </ApolloProvider>
       </ThemeProvider>
