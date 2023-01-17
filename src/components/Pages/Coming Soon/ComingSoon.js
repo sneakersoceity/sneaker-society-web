@@ -68,7 +68,7 @@ export const ComingSoon = () => {
           borderRadius="24px"
           boxShadow="0px 6px 20px rgba(248, 235, 235, 0.25)"
         >
-          Coming Soon...
+          Coming Soon... Hello
         </Typography>
       </MyCompSecond>
     </Box>
