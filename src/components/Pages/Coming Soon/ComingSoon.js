@@ -156,7 +156,7 @@ export const ComingSoon = () => {
           </form> */}
         {/* </Typography> */}
         <div style={{ display: "flex", height: "3rem" }}>
-          <input
+          {/* <input
             style={{
               border: "none",
               borderRadius: "4px",
@@ -181,6 +181,19 @@ export const ComingSoon = () => {
             onClick={createNewEmail}
           >
             Sign Up
+          </button> */}
+
+          <button
+            style={{
+              background: "yellow",
+              border: "none",
+              borderRadius: "4px",
+              marginLeft: "0.5rem",
+              fontSize: "1.1rem",
+            }}
+            onClick={createNewEmail}
+          >
+            Query Email
           </button>
         </div>
         <p style={{ color: "white" }}>{message}</p>
