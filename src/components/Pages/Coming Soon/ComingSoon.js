@@ -156,7 +156,7 @@ export const ComingSoon = () => {
           </form> */}
         {/* </Typography> */}
         <div style={{ display: "flex", height: "3rem" }}>
-          {/* <input
+          <input
             style={{
               border: "none",
               borderRadius: "4px",
@@ -169,7 +169,7 @@ export const ComingSoon = () => {
             type="email"
             value={email}
             onChange={handleSubmit}
-          ></input> */}
+          ></input>
           <button
             style={{
               background: "yellow",
