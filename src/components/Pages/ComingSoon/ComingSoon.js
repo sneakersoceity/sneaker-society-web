@@ -2,7 +2,7 @@ import { Typography, Stack, Alert, AlertTitle } from "@mui/material";
 import { ReactComponent as Logo } from "../../../assets/SS Logo.svg";
 import { Box, styled, keyframes } from "@mui/system";
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_EMAIL } from "./graphql/addEmail";
 
 const fadeInFirst = keyframes`
@@ -39,35 +39,36 @@ export const ComingSoon = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  // const emailValidation = (e) => {
-  //   // e.preventDefault();
-  //   const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9+-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-  //   if (regEx.test(email)) {
-  //     setMessage("Email Is Valid");
-  //   } else if (!regEx.test(email) && email !== "") {
-  //     setMessage("Email is Not Valid");
-  //   } else {
-  //     setMessage("");
-  //   }
-  // };
+  const emailValidation = (e) => {
+    e.preventDefault();
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9+-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if (regEx.test(email)) {
+      setMessage("Email Is Valid");
+    } else if (!regEx.test(email) && email !== "") {
+      setMessage("Email is Not Valid");
+    } else {
+      setMessage("");
+    }
+  };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     setEmail(e.target.value);
   };
 
   const [createEmail] = useMutation(CREATE_EMAIL);
 
-  async function createNewEmail() {
-    const res = await createEmail({
-      variables: {
-        data: {
-          email: "test222@gmail.com",
-        },
-      },
-    });
-    return res;
-  }
+  // async function createNewEmail() {
+  //   const res = await createEmail({
+  //     variables: {
+  //       data: {
+  //         email: "test222@gmail.com",
+  //       },
+  //     },
+  //   });
+
+  //   return res;
+  // }
 
   return (
     <Box
@@ -83,9 +84,9 @@ export const ComingSoon = () => {
         <MyComp>
           <Logo height="100%" width="100%" />
 
-          {/* <Typography variant="h5" fontWeight="bold" color="white">
+          <Typography variant="h5" fontWeight="bold" color="white">
             Welcome to the best online sneaker community!
-          </Typography> */}
+          </Typography>
         </MyComp>
       </Stack>
 
@@ -156,7 +157,7 @@ export const ComingSoon = () => {
           </form> */}
         {/* </Typography> */}
         <div style={{ display: "flex", height: "3rem" }}>
-          {/* <input
+          <input
             style={{
               border: "none",
               borderRadius: "4px",
@@ -178,22 +179,17 @@ export const ComingSoon = () => {
               marginLeft: "0.5rem",
               fontSize: "1.1rem",
             }}
-            onClick={createNewEmail}
+            onClick={async () => {
+              await createEmail({
+                variables: {
+                  data: {
+                    email: "ayttester@gmail.com",
+                  },
+                },
+              });
+            }}
           >
             Sign Up
-          </button> */}
-
-          <button
-            style={{
-              background: "yellow",
-              border: "none",
-              borderRadius: "4px",
-              marginLeft: "0.5rem",
-              fontSize: "1.1rem",
-            }}
-            onClick={createNewEmail}
-          >
-            Query Email
           </button>
         </div>
         <p style={{ color: "white" }}>{message}</p>
