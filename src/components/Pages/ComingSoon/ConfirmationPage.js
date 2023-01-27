@@ -1,7 +1,6 @@
 import { Box, Stack, styled, keyframes } from "@mui/system";
 import React from "react";
 import { ReactComponent as Logo } from "../../../assets/SS Logo.svg";
-// import img1 from "../../../assets/Email Confirmation.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSquareFacebook,
@@ -10,6 +9,7 @@ import {
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import styles from "../../stylesheets/ConfirmationPage.module.css";
+import { Typography } from "@mui/material";
 
 const fadeInFirst = keyframes`
 0% {
@@ -47,59 +47,66 @@ function ConfirmationPage() {
       width="100%"
       height="100vh"
       bgcolor="black"
-      //   display="flex"
+      display="flex"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      paddingTop="4rem"
     >
-      <Stack alignItems="center" spacing={2} pb={7}>
-        <MyComp>
-          <Logo height="50%" width="50%" />
-          {/* <img src={img1} alt="confirmation" 
-          className={styles.img1}>
-          </img> */}
-          <div>
-            <h2 className={styles.header}>Thank You!</h2>
-            <h3 className={styles.text}>
-              We've added you to our list, be sure to check your inbox.
-            </h3>
-            <div className={styles.socialMediaLogo}>
-              <div className={styles.designLogo}>
-                <a href="">
-                  <FontAwesomeIcon
-                    icon={faSquareFacebook}
-                    inverse
-                    className={styles.logo}
-                  />
-                </a>
-                <a href="">
-                  <FontAwesomeIcon
-                    icon={faSquareTwitter}
-                    inverse
-                    className={styles.logo}
-                  />
-                </a>
-                <a href="">
-                  <FontAwesomeIcon
-                    icon={faInstagram}
-                    inverse
-                    className={styles.logo}
-                  />
-                </a>
-                <a href="">
-                  <FontAwesomeIcon
-                    icon={faTiktok}
-                    inverse
-                    className={styles.logo}
-                  />
-                </a>
-              </div>
+      <MyComp>
+        <Stack alignItems="center" spacing={3} pb={7}>
+          <Logo height="30vh" width="auto" />
+          <Typography
+            variant="h2"
+            color="white"
+            fontWeight="bold"
+            textAlign="center"
+            fontSize="3rem"
+          >
+            Thank You!
+          </Typography>
+          <Typography
+            fontSize="1.8rem"
+            variant="h3"
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+          >
+            We've added you to our list, be sure to check your inbox.
+          </Typography>
+          <div className={styles.socialMediaLogo}>
+            <div className={styles.designLogo}>
+              <a href="">
+                <FontAwesomeIcon
+                  icon={faSquareFacebook}
+                  inverse
+                  className={styles.logo}
+                />
+              </a>
+              {/* <a href="">
+                <FontAwesomeIcon
+                  icon={faSquareTwitter}
+                  inverse
+                  className={styles.logo}
+                />
+              </a> */}
+              <a href="">
+                <FontAwesomeIcon
+                  icon={faInstagram}
+                  inverse
+                  className={styles.logo}
+                />
+              </a>
+              {/* <a href="">
+                <FontAwesomeIcon
+                  icon={faTiktok}
+                  inverse
+                  className={styles.logo}
+                />
+              </a> */}
             </div>
           </div>
-        </MyComp>
-      </Stack>
-
+        </Stack>
+      </MyComp>
       <MyCompSecond></MyCompSecond>
     </Box>
   );
