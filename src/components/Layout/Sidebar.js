@@ -34,7 +34,7 @@ const SidebarLink = ({ text, Icon, notificationNumber, onClick, link }) => {
       <Typography
         sx={{
           fontWeight: "500",
-          fontSize: "1.5rem",
+          fontSize: "1rem",
           transition: "box-shadow 200ms",
           ":hover": {
             boxShadow: "inset 0 -3px 0 0  #FDE400",
@@ -92,6 +92,8 @@ export const Sidebar = () => {
           notificationNumber={3}
           Icon={MdOutlineMessage}
         />
+        <SidebarLink text="Complete Profile" link="/member/profile"/>
+        <SidebarLink text="Add Your Services" link="/member/service"/>
       </Stack>
 
       <Stack

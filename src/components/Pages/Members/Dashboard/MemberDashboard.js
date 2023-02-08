@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import Dashboard from "../../Dashboard/Dashboard";
 import { useQuery } from "@apollo/client";
 import { MEMBER_STATS } from "./graphql/MemberStats";
+import { InputBase, styled } from "@mui/material";
 
 const StatusCard = ({ title, amount }) => (
   <Box
@@ -162,6 +163,14 @@ const MemberDashboard = () => {
   const { loading, error, data } = useQuery(MEMBER_STATS, {
     variables: { id: "631df9a8a9e499f3251e951d" },
   });
+
+  const Search = styled("div")(({ theme }) => ({
+    backgroundColor: "white",
+    padding: "0 10px",
+    borderRadius: theme.shape.borderRadius,
+    width: "80%",
+  }));
+
   return (
     <Container
       style={{
@@ -169,6 +178,10 @@ const MemberDashboard = () => {
         overflow: "scroll",
       }}
     >
+ <Search>
+          <InputBase placeholder="search..." />
+        </Search>
+
       <Typography variant="h1" color="white">
         Dashboard
       </Typography>
