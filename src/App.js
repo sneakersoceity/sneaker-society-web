@@ -10,6 +10,8 @@ import MemberDashboard from "./components/Pages/Members/Dashboard/MemberDashboar
 import { useAuth } from "./auth/auth";
 import ComingSoon from "./components/Pages/ComingSoon/ComingSoon";
 import NotFound from "./components/Pages/NotFound/NotFound";
+import CompleteProfile from "./components/Pages/Members/Forms/CompleteProfile/CompleteProfile";
+import Service from "./components/Pages/Members/Cards/Service";
 
 const ProtectedRoute = ({ user, children, redirectPath }) => {
   if (!user?.loggedIn) {
@@ -41,6 +43,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="member/:memberId" element={<MemberIntakeForm />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="complete-profile" element={<CompleteProfile />} />
+        <Route path="member/service" element={<Service />} />
       </Routes>
     </div>
   );
